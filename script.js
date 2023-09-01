@@ -135,7 +135,7 @@ async function findAdventure() {
                 return response.text();
             })
             .then(data => {
-                var apiResponseArray = JSON.parse(apiResponseString);
+                var apiResponseArray = JSON.parse(data);
                 //resultDiv.textContent = data;
                 apiResponseArray.forEach(function (item) {
                     // Create a new <div> element
@@ -143,11 +143,11 @@ async function findAdventure() {
                 
                     // Set the content of the <div> using the item data
                     divElement.innerHTML = `
-                      <div class="arrivalDate">${item.arrivalDate}</div>
-                      <div class="departureDate">${item.departureDate}</div>
-                      <div class="price">${item.price.value}</div>
-                      <div class="From">${item.From}</div>
-                      <div class="To">${item.To}</div>
+                      <span class="arrivalDate">${item.arrivalDate}</span>
+                      <span class="departureDate">${item.departureDate}</span>
+                      <span class="price">${item.price.value}</span>
+                      <span class="From">${item.From}</span>
+                      <span class="To">${item.To}</span>
                       <br></br>
                     `;
                 
