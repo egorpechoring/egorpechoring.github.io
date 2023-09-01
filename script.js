@@ -1,7 +1,7 @@
 const errorMessageElem = document.getElementById("errorMessage");
 const progressElem = document.getElementById("progress");
 const progressInnerElem = document.getElementById("progress-inner");
-const progressBarWidth = 500; // Width of the progress bar (in pixels)
+const progressBarWidth = 100; 
 let progressInterval;
 
 function clearErrorMessage() {
@@ -18,14 +18,14 @@ function showProgressBar() {
     let progressInterval;
 
     progressElem.style.display = "block";
-    progressInnerElem.style.width = "0";
+    progressInnerElem.style.width = "0%";
 
     progressInterval = setInterval(() => {
         if (progress >= progressBarWidth) {
             clearInterval(progressInterval);
         } else {
             progress += step;
-            progressInnerElem.style.width = `${progress}px`;
+            progressInnerElem.style.width = `${progress}%`;
         }
     }, 1000);
 }
@@ -74,6 +74,29 @@ function validateForm() {
     return true;
 }
 
+function generateRandomKey() {
+    const randomString = Math.random().toString(36).substring(2);
+    const currentTime = new Date().getTime();
+    const randomKey = `${randomString}-${currentTime}`;
+    return randomKey;
+}
+
+function checkLocalStorage() {
+    const localStorageKey = "ifly-user";
+    const existingValue = localStorage.getItem(localStorageKey);
+
+    console.log("ifly-user")
+    console.log(existingValue)
+  
+    if (!existingValue || existingValue.trim() === "") {
+      const randomKey = generateRandomKey();
+      localStorage.setItem(localStorageKey, randomKey);
+      return randomKey;
+    } else {
+      return existingValue;
+    }
+}
+
 async function findAdventure() {
     if (validateForm()) {
         const limit = document.getElementById("limit").value;
@@ -83,15 +106,20 @@ async function findAdventure() {
         const email = document.getElementById("email").value;
         const returnTicket = document.getElementById("returnTicket").checked;
 
+        const userKey = checkLocalStorage();
+
         console.log("Limit:", limit);
         console.log("Departure:", departure);
         console.log("Currency:", currency);
         console.log("Arrival:", arrival);
         console.log("Email:", email);
         console.log("Return Ticket:", returnTicket);
+
+        console.log("User Key:", userKey);
         
         showProgressBar();
         setTimeout(() => {
+            displayResult()
             hideProgressBar();
         }, 20000);
     }
