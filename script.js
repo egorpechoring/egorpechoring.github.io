@@ -84,9 +84,6 @@ function generateRandomKey() {
 function checkLocalStorage() {
     const localStorageKey = "ifly-user";
     const existingValue = localStorage.getItem(localStorageKey);
-
-    console.log("ifly-user")
-    console.log(existingValue)
   
     if (!existingValue || existingValue.trim() === "") {
       const randomKey = generateRandomKey();
@@ -118,10 +115,31 @@ async function findAdventure() {
         console.log("User Key:", userKey);
         
         showProgressBar();
-        setTimeout(() => {
-            displayResult()
-            hideProgressBar();
-        }, 20000);
+        // setTimeout(() => {
+        //     displayResult()
+        //     hideProgressBar();
+        // }, 20000);
+        const apiUrl = `https://ts8n59al5l.execute-api.eu-north-1.amazonaws.com/default/IFlyBackend?From=${departure}&To=${arrival}&isReturn=${returnTicket}&currency=${currency}&threshold=${limit}`;
+
+        const resultDiv = document.getElementById('result');
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                resultDiv.textContent = data;
+            })
+            .catch(error => {
+                resultDiv.textContent = 'Error: ' + error.message;
+            })
+            .finally(() => {
+                hideProgressBar();
+                console.log('Request completed.');
+            });
     }
 }
 
