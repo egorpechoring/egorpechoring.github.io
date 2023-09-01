@@ -94,6 +94,19 @@ function checkLocalStorage() {
     }
 }
 
+function splitDateTime(dateTimeString) {
+    const [datePart, timePart] = dateTimeString.split("T");
+    const [year, month, day] = datePart.split("-");
+    const [hour, minute, second] = timePart.split(":");
+    
+    const dateTime = new Date(year, month - 1, day, hour, minute, second);
+    
+    return {
+      date: dateTime.toDateString(),
+      time: dateTime.toTimeString()
+    };
+}
+
 async function findAdventure() {
     if (validateForm()) {
         const limit = document.getElementById("limit").value;
@@ -140,14 +153,16 @@ async function findAdventure() {
                 apiResponseArray.forEach(function (item) {
                     // Create a new <div> element
                     var divElement = document.createElement('div');
+
+                    const resultDepart = splitDateTime(item.departureDate);
+                    const resultArrive = splitDateTime(item.arrivalDate);
                 
                     // Set the content of the <div> using the item data
                     divElement.innerHTML = `
-                      <span class="arrivalDate">${item.arrivalDate}</span>
-                      <span class="departureDate">${item.departureDate}</span>
-                      <span class="price">${item.price.value}</span>
-                      <span class="From">${item.From}</span>
-                      <span class="To">${item.To}</span>
+                      <div>From ${item.From} to ${item.To}</div>
+                      <div>Departure date ${resultDepart.date} at ${resultDepart.time}</div>
+                      <div>Arrival date ${resultArrive.date} at ${resultArrive.time}</div>
+                      <div><span >${item.price.value}</span></div>
                       <br></br>
                     `;
                 
