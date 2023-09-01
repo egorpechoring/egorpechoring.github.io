@@ -1,6 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <h1>iFly - Find New Adventure</h1>
-<html>
-<head>
+    <title>iFly - Find New Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>iFly - Find New Adventure</h1>
+        <label for="limit">Limit:</label>
+        <input type="number" id="limit" value="99" min="1">
+        <br></br>
+        
+        <label for="departure">Departure airport:</label>
+        <select id="departure">
+            <option value="">Select an option</option>
+            <option value="TLL">Tallinn (TLL)</option>
+            <option value="RIX">Riga (RIX)</option>
+        </select>
+        <br></br>
+        
+        <label for="currency">Currency:</label>
+        <select id="currency">
+            <option value="" selected>Select an option</option>
+            <option value="EUR" >EUR</option>
+            <option value="USD" >USD</option>
+        </select>
+        <br></br>
+        
+        <label for="arrival">Arrival airport:</label>
+        <span class="small-text">
+            * keep empty to search cheapest tickets to random airport in the world
+        </span>
+        <select id="arrival">
+            <option value="">Select an option</option>
+            <option value="TLL">Tallinn (TLL)</option>
+            <option value="RIX">Riga (RIX)</option>
+        </select>
+        <br></br>
+        
+        <label for="arrival">Two-way tickets:</label>
+        <label style="display: inline;">
+            <input style="width: 10%;" type="checkbox" id="returnTicket"> 
+            <span style="font-weight: normal;">Find return ticket as well</span>
+        </label>
+        <br></br>
+        
+        <label for="email">Leave your email for receiving personalised hot deals:</label>
+        <input type="text" id="email">
+        <br></br>
+        
+        <button id="findAdventure">Find new adventure!</button>
+        <br></br>
+        
+        <div id="progress">
+            <div id="progress-inner"></div>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
