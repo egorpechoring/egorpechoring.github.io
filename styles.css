@@ -3,11 +3,23 @@ body {
 }
 
 .container {
-    max-width: 90%;
+    max-width: 40%;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 767px) {
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 40%;
+    }
 }
 
 label {
