@@ -99,7 +99,7 @@ async function findAdventure() {
         const limit = document.getElementById("limit").value;
         const departure = document.getElementById("departure").value;
         const currency = document.getElementById("currency").value;
-        const arrival = document.getElementById("arrival").value;
+        arrival = document.getElementById("arrival").value;
         const email = document.getElementById("email").value;
         const returnTicket = document.getElementById("returnTicket").checked;
 
@@ -113,6 +113,10 @@ async function findAdventure() {
         console.log("Return Ticket:", returnTicket);
 
         console.log("User Key:", userKey);
+
+        if(!arrival){
+            arrival = 'any';
+        }
         
         showProgressBar();
         // setTimeout(() => {
@@ -121,7 +125,7 @@ async function findAdventure() {
         // }, 20000);
         const apiUrl = `https://ts8n59al5l.execute-api.eu-north-1.amazonaws.com/default/IFlyBackend?From=${departure}&To=${arrival}&isReturn=${returnTicket}&currency=${currency}&threshold=${limit}`;
 
-        const resultDiv = document.getElementById('result');
+        var resultDiv = document.getElementById('result');
 
         fetch(apiUrl)
             .then(response => {
@@ -131,7 +135,25 @@ async function findAdventure() {
                 return response.text();
             })
             .then(data => {
-                resultDiv.textContent = data;
+                var apiResponseArray = JSON.parse(apiResponseString);
+                //resultDiv.textContent = data;
+                apiResponseArray.forEach(function (item) {
+                    // Create a new <div> element
+                    var divElement = document.createElement('div');
+                
+                    // Set the content of the <div> using the item data
+                    divElement.innerHTML = `
+                      <div class="arrivalDate">${item.arrivalDate}</div>
+                      <div class="departureDate">${item.departureDate}</div>
+                      <div class="price">${item.price.value}</div>
+                      <div class="From">${item.From}</div>
+                      <div class="To">${item.To}</div>
+                      <br></br>
+                    `;
+                
+                    // Append the <div> element to the 'result' div
+                    resultDiv.appendChild(divElement);
+                  });
             })
             .catch(error => {
                 resultDiv.textContent = 'Error: ' + error.message;
