@@ -137,24 +137,49 @@ function isMacOSOrWindows() {
     return userAgent.includes('macintosh') || userAgent.includes('windows');
 }
 
-function setFontSizesTo75Percent() {
-    if (isMacOSOrWindows()) {
-        const elementsToAdjust = [
-            'body',
-            '.form-control',
-            '.btn',
-            '.form-check-input',
-            '.form-check-label',
-            '#errorMessage'
-        ];
+function mobileOrWeb() {
+    if (!isMacOSOrWindows()) {
+        // Select the body element and increase the base font size
+        document.body.style.fontSize = '175%';
 
-        elementsToAdjust.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(element => {
-                element.style.fontSize = '20px';
-            });
+        // Select and increase the font size for headings
+        var headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        headings.forEach(function(heading) {
+            heading.style.fontSize = '82px';
         });
+
+        // Select and increase the size of form elements
+        var formControls = document.querySelectorAll('.form-control');
+        formControls.forEach(function(control) {
+            control.style.fontSize = '175%';
+            control.style.padding = '10px';
+        });
+
+        // Select and increase the size of buttons
+        var buttons = document.querySelectorAll('.btn');
+        buttons.forEach(function(button) {
+            button.style.fontSize = '175%';
+            button.style.padding = '10px 20px';
+        });
+
+        // Select and increase the size of checkboxes and labels
+        var formCheckInputs = document.querySelectorAll('.form-check-input');
+        var formCheckLabels = document.querySelectorAll('.form-check-label');
+        formCheckInputs.forEach(function(input) {
+            input.style.fontSize = '175%';
+            input.style.height = '100%';
+            input.style.width = '10%';
+            input.style.transform = 'scale(1)';
+        });
+        formCheckLabels.forEach(function(label) {
+            label.style.marginLeft = '10%';
+        });
+
+        // Increase the size of the error message text
+        var errorMessage = document.getElementById('errorMessage');
+        errorMessage.style.fontSize = '175%';
+
     }
 }
 
-setFontSizesTo75Percent();
+mobileOrWeb();
