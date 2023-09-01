@@ -131,3 +131,30 @@ findAdventureButton.addEventListener("click", findAdventure);
 function displayResult() {
     // Add code to display results in clickable cards
 }
+
+function isMacOSOrWindows() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.includes('macintosh') || userAgent.includes('windows');
+}
+
+function setFontSizesTo75Percent() {
+    if (isMacOSOrWindows()) {
+        const elementsToAdjust = [
+            'body',
+            '.form-control',
+            '.btn',
+            '.form-check-input',
+            '.form-check-label',
+            '#errorMessage'
+        ];
+
+        elementsToAdjust.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                element.style.fontSize = '20px';
+            });
+        });
+    }
+}
+
+setFontSizesTo75Percent();
