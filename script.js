@@ -101,9 +101,11 @@ function splitDateTime(dateTimeString) {
     
     const dateTime = new Date(year, month - 1, day, hour, minute, second);
     
+    const formattedTime = `${hour}:${minute}`;
+    
     return {
       date: dateTime.toDateString(),
-      time: dateTime.toTimeString()
+      time: formattedTime
     };
 }
 
@@ -160,9 +162,8 @@ async function findAdventure() {
                     // Set the content of the <div> using the item data
                     divElement.innerHTML = `
                       <div>From ${item.From} to ${item.To}</div>
-                      <div>Departure date ${resultDepart.date} at ${resultDepart.time}</div>
-                      <div>Arrival date ${resultArrive.date} at ${resultArrive.time}</div>
-                      <div><span >${item.price.value}</span></div>
+                      <div>${resultDepart.date} at ${resultDepart.time}  ->  ${resultArrive.date} at ${resultArrive.time}</div>
+                      <div><span >Price: ${item.price.value} ${currency}</span></div>
                       <br></br>
                     `;
                 
