@@ -110,6 +110,10 @@ function splitDateTime(dateTimeString) {
 }
 
 async function findAdventure() {
+    var resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '';
+
+    errorMessageElem.innerHTML = '';
     if (validateForm()) {
         const limit = document.getElementById("limit").value;
         const departure = document.getElementById("departure").value;
@@ -134,13 +138,10 @@ async function findAdventure() {
         }
         
         showProgressBar();
-        // setTimeout(() => {
-        //     displayResult()
-        //     hideProgressBar();
-        // }, 20000);
-        const apiUrl = `https://ts8n59al5l.execute-api.eu-north-1.amazonaws.com/default/IFlyBackend?From=${departure}&To=${arrival}&isReturn=${returnTicket}&currency=${currency}&threshold=${limit}`;
 
-        var resultDiv = document.getElementById('result');
+        const apiUrl = `https://ts8n59al5l.execute-api.eu-north-1.amazonaws.com/default/IFlyBackend?From=${departure}&To=${arrival}&isReturn=${returnTicket}&currency=${currency}&threshold=${limit}`;
+        console.log("apiUrl");
+        console.log(apiUrl);
 
         fetch(apiUrl)
             .then(response => {
@@ -150,26 +151,74 @@ async function findAdventure() {
                 return response.text();
             })
             .then(data => {
+                //console.log(data)
                 var apiResponseArray = JSON.parse(data);
-                //resultDiv.textContent = data;
-                apiResponseArray.forEach(function (item) {
-                    // Create a new <div> element
-                    var divElement = document.createElement('div');
+                if (returnTicket){
+                    apiResponseArray.forEach(function (item) {
+                        console.log(item)
 
-                    const resultDepart = splitDateTime(item.departureDate);
-                    const resultArrive = splitDateTime(item.arrivalDate);
-                
-                    // Set the content of the <div> using the item data
-                    divElement.innerHTML = `
-                      <div>From ${item.From} to ${item.To}</div>
-                      <div>${resultDepart.date} at ${resultDepart.time}  ->  ${resultArrive.date} at ${resultArrive.time}</div>
-                      <div><span >Price: ${item.price.value} ${currency}</span></div>
-                      <br></br>
-                    `;
-                
-                    // Append the <div> element to the 'result' div
-                    resultDiv.appendChild(divElement);
-                  });
+                        var parentDiv = document.createElement('div');
+                        parentDiv.style.display = 'flex'; 
+
+                        var divElement1 = document.createElement('div');
+
+                        const resultDepart1 = splitDateTime(item[0].departureDate);
+                        const resultArrive1 = splitDateTime(item[0].arrivalDate);
+
+                        divElement1.innerHTML = `
+                            <div>From ${item[0].From} to ${item[0].To}</div>
+                            <div>${resultDepart1.date} at ${resultDepart1.time}</div>
+                            <div>  ->  ${resultArrive1.date} at ${resultArrive1.time}</div>
+                            <div><span>Price: ${item[0].price.value} ${currency}</span></div>
+                        `;
+
+                        var divElement2 = document.createElement('div');
+
+                        const resultDepart2 = splitDateTime(item[1].departureDate);
+                        const resultArrive2 = splitDateTime(item[1].arrivalDate);
+
+                        divElement2.innerHTML = `
+                            <div>From ${item[1].From} to ${item[1].To}</div>
+                            <div>${resultDepart2.date} at ${resultDepart2.time}</div>
+                            <div>  ->  ${resultArrive2.date} at ${resultArrive2.time}</div>
+                            <div><span>Price: ${item[1].price.value} ${currency}</span></div>
+                        `;
+
+                        divElement1.style.marginRight = '5%';
+                        divElement2.style.borderLeft = '3px dotted black';
+                        divElement2.style.borderLeftS = 'black';
+                        divElement2.style.width = '50%';
+                        divElement2.style.paddingLeft = '5%';
+                        parentDiv.appendChild(divElement1);
+                        parentDiv.appendChild(divElement2);
+
+                        var divElement = document.createElement('div');
+                        divElement.innerHTML = `
+                            <div><span><b>Total price:</b> ${(item[0].price.value + item[1].price.value).toFixed(2)} ${currency} (both tickets sum)</span></div>
+                            <br></br>
+                        `;
+
+                        resultDiv.appendChild(parentDiv);
+                        resultDiv.appendChild(divElement);
+
+                    });
+                } else {
+                    apiResponseArray.forEach(function (item) {
+                        var divElement = document.createElement('div');
+    
+                        const resultDepart = splitDateTime(item.departureDate);
+                        const resultArrive = splitDateTime(item.arrivalDate);
+                    
+                        divElement.innerHTML = `
+                          <div>From ${item.From} to ${item.To}</div>
+                          <div>${resultDepart.date} at ${resultDepart.time}  ->  ${resultArrive.date} at ${resultArrive.time}</div>
+                          <div><span >Price: ${item.price.value} ${currency}</span></div>
+                          <br></br>
+                        `;
+                    
+                        resultDiv.appendChild(divElement);
+                    });
+                }
             })
             .catch(error => {
                 resultDiv.textContent = 'Error: ' + error.message;
@@ -185,7 +234,7 @@ const findAdventureButton = document.getElementById("findAdventure");
 findAdventureButton.addEventListener("click", findAdventure);
 
 function displayResult() {
-    // Add code to display results in clickable cards
+    // TODO : Add code to display results in clickable cards
 }
 
 function isMacOSOrWindows() {
@@ -195,30 +244,25 @@ function isMacOSOrWindows() {
 
 function mobileOrWeb() {
     if (!isMacOSOrWindows()) {
-        // Select the body element and increase the base font size
         document.body.style.fontSize = '175%';
 
-        // Select and increase the font size for headings
         var headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
         headings.forEach(function(heading) {
             heading.style.fontSize = '82px';
         });
 
-        // Select and increase the size of form elements
         var formControls = document.querySelectorAll('.form-control');
         formControls.forEach(function(control) {
             control.style.fontSize = '175%';
             control.style.padding = '10px';
         });
 
-        // Select and increase the size of buttons
         var buttons = document.querySelectorAll('.btn');
         buttons.forEach(function(button) {
             button.style.fontSize = '175%';
             button.style.padding = '10px 20px';
         });
 
-        // Select and increase the size of checkboxes and labels
         var formCheckInputs = document.querySelectorAll('.form-check-input');
         var formCheckLabels = document.querySelectorAll('.form-check-label');
         formCheckInputs.forEach(function(input) {
@@ -231,7 +275,6 @@ function mobileOrWeb() {
             label.style.marginLeft = '10%';
         });
 
-        // Increase the size of the error message text
         var errorMessage = document.getElementById('errorMessage');
         errorMessage.style.fontSize = '175%';
 
