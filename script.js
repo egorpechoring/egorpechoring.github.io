@@ -192,10 +192,15 @@ function validateForm() {
     clearErrorMessage();
     
     const limit = document.getElementById("limit").value;
-    const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
+    const departureAr = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/);
+    let departure; 
+    if (departureAr) {departure = departureAr[1]}
 
     const currency = document.getElementById("currency").value;
-    const arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
+    const arrivalAr = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/);
+    let arrival;
+    if (arrivalAr) {arrival = arrivalAr[1]}
+    
     const email = document.getElementById("email").value;
 
     let isOk = true;
@@ -207,7 +212,7 @@ function validateForm() {
         clearErrorMessage('limitErrorMessage')
     }
     
-    if (!departure) {
+    if (!departure || departure === "") {
         showError("Please select a departure airport", 'departureAirportErrorMessage');
         isOk = false;
     } else {
@@ -321,10 +326,16 @@ async function findAdventure() {
     clearErrorMessage();
     if (validateForm()) {
         const limit = document.getElementById("limit").value;
-        const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
+        
+        const departureAr = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/);
+        let departure; 
+        if (departureAr) {departure = departureAr[1]}
 
         const currency = document.getElementById("currency").value;
-        arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
+        const arrivalAr = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/);
+        let arrival;
+        if (arrivalAr) {arrival = arrivalAr[1]}
+
         const email = document.getElementById("email").value;
         const returnTicket = document.getElementById("returnTicket").checked;
 
@@ -411,10 +422,10 @@ findAdventureButton.addEventListener("click", findAdventure);
 function renderData(apiResponseArray) {
     resultDiv.innerHTML = '';
     const limit = document.getElementById("limit").value;
-    const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
+    //const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
 
     const currency = document.getElementById("currency").value;
-    const arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
+    //const arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
     const email = document.getElementById("email").value;
     const returnTicket = document.getElementById("returnTicket").checked;
 
