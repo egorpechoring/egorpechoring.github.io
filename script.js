@@ -72,6 +72,7 @@ function filterByStay(minStay, maxStay){
         clearErrorMessage('maxLimitErrorMessage') 
         console.log(`Filtering with more than ${minStay}, less than ${maxStay}`);
 
+        //TODO : fix for 'any'
         const filteredFlights = savedBlob.filter((innerArray) => {
             for (let i = 1; i < innerArray.length; i++) {
               const departureDate1 = new Date(innerArray[i - 1].departureDate);
@@ -288,6 +289,22 @@ function unhideElement(elementId) {
     }
 }
 
+// --- modifying "2way to any" to normal array could works with ---
+function createFlightPairs(apiResponseA) {
+    const flightPairs = [];
+  
+    for (const container of apiResponseA) {
+      for (const tuple of container) {
+        flightPairs.push(tuple);
+      }
+    }
+
+    console.log(flightPairs)
+  
+    return flightPairs;
+}
+// --- . ---
+
 async function findAdventure() {
     savedResponseArray = [];
     resultDiv.innerHTML = '';
@@ -340,6 +357,10 @@ async function findAdventure() {
                 var apiResponseArray = JSON.parse(data);
                 console.log(apiResponseArray);
                 if (apiResponseArray.length !== 0){
+
+                    if(returnTicket && arrival === "any"){
+                        apiResponseArray = createFlightPairs(apiResponseArray);
+                    }
                     
                     apiResponseArray.sort(function(a, b) {
                         var dateA;
