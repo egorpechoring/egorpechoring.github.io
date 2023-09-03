@@ -192,9 +192,10 @@ function validateForm() {
     clearErrorMessage();
     
     const limit = document.getElementById("limit").value;
-    const departure = document.getElementById("departure").value;
+    const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
+
     const currency = document.getElementById("currency").value;
-    const arrival = document.getElementById("arrival").value;
+    const arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
     const email = document.getElementById("email").value;
 
     let isOk = true;
@@ -320,9 +321,10 @@ async function findAdventure() {
     clearErrorMessage();
     if (validateForm()) {
         const limit = document.getElementById("limit").value;
-        const departure = document.getElementById("departure").value;
+        const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
+
         const currency = document.getElementById("currency").value;
-        arrival = document.getElementById("arrival").value;
+        arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
         const email = document.getElementById("email").value;
         const returnTicket = document.getElementById("returnTicket").checked;
 
@@ -409,9 +411,10 @@ findAdventureButton.addEventListener("click", findAdventure);
 function renderData(apiResponseArray) {
     resultDiv.innerHTML = '';
     const limit = document.getElementById("limit").value;
-    const departure = document.getElementById("departure").value;
+    const departure = document.getElementById("searchInputDeparture").value.match(/\(([^)]+)\)/)[1];
+
     const currency = document.getElementById("currency").value;
-    const arrival = document.getElementById("arrival").value;
+    const arrival = document.getElementById("searchInputArrival").value.match(/\(([^)]+)\)/)[1];
     const email = document.getElementById("email").value;
     const returnTicket = document.getElementById("returnTicket").checked;
 
@@ -528,6 +531,7 @@ function mobileOrWeb() {
     }
 }
 
+/* airports stuff */
 async function loadSupportedAirports() {
     try {
       const apiUrl = 'https://www.ryanair.com/api/views/locate/5/airports/en/active';
@@ -543,7 +547,7 @@ async function loadSupportedAirports() {
         throw new Error('Invalid data format');
       }
   
-      const supportedAirports = airportData.map((airport) => {
+    supportedAirports = airportData.map((airport) => {
         return `${airport.name} (${airport.code})`;
       });
   
@@ -553,7 +557,86 @@ async function loadSupportedAirports() {
       return [];
     }
 }
-  
+//---
+
+// For the departure airport input and suggestions list
+const searchInputDeparture = document.getElementById('searchInputDeparture');
+const suggestionsListDeparture = document.getElementById('suggestionsListDeparture');
+let suggestionsVisibleDeparture = false; // Flag for departure suggestions
+
+// For the arrival airport input and suggestions list
+const searchInputArrival = document.getElementById('searchInputArrival');
+const suggestionsListArrival = document.getElementById('suggestionsListArrival');
+let suggestionsVisibleArrival = false; // Flag for arrival suggestions
+
+// Event listeners for input changes
+
+searchInputDeparture.addEventListener('input', () => {
+    handleInput(searchInputDeparture, suggestionsListDeparture);
+});
+
+searchInputArrival.addEventListener('input', () => {
+    handleInput(searchInputArrival, suggestionsListArrival);
+});
+
+// Event listener for clicks anywhere on the document
+
+document.addEventListener('click', handleClick);
+
+function handleInput(inputElement, suggestionsList) {
+    const searchTerm = inputElement.value.toLowerCase();
+    const matchingAirports = supportedAirports.filter(airport => airport.toLowerCase().includes(searchTerm));
+
+    displaySuggestions(matchingAirports, suggestionsList, inputElement);
+}
+
+function displaySuggestions(suggestions, suggestionsList, inputElement) {
+    suggestionsList.innerHTML = '';
+
+    if (suggestions.length === 0) {
+        hideSuggestions(suggestionsList);
+        return;
+    }
+
+    suggestions.forEach(suggestion => {
+        const li = document.createElement('li');
+        li.textContent = suggestion;
+        li.addEventListener('click', () => {
+            inputElement.value = suggestion;
+            hideSuggestions(suggestionsList);
+        });
+        suggestionsList.appendChild(li);
+    });
+
+    showSuggestions(suggestionsList);
+}
+
+function showSuggestions(suggestionsList) {
+    suggestionsList.style.display = 'block';
+}
+
+function hideSuggestions(suggestionsList) {
+    suggestionsList.style.display = 'none';
+}
+
+function handleClick(event) {
+    // if (!suggestionsVisibleDeparture && !suggestionsVisibleArrival) {
+    //     return;
+    // }
+
+    // Check if the click target is not within the departure or arrival input and suggestions list
+    if (
+        !searchInputDeparture.contains(event.target) &&
+        !suggestionsListDeparture.contains(event.target) &&
+        !searchInputArrival.contains(event.target) &&
+        !suggestionsListArrival.contains(event.target)
+    ) {
+        hideSuggestions(suggestionsListDeparture);
+        hideSuggestions(suggestionsListArrival);
+    }
+}
+
+// airports stuff upper
 
 mobileOrWeb();
 hideElement('settings');
