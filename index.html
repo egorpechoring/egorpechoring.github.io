@@ -39,6 +39,7 @@
             <div class="form-group">
                 <label for="limit">Limit:</label>
                 <input type="number" class="form-control" id="limit" value="99" min="1" max="200">
+                <div id="limitErrorMessage" class="text-danger mt-3"></div>
             </div>
 
             <div class="form-group">
@@ -48,6 +49,7 @@
                     <option value="EUR" selected>EUR</option>
                     <option value="USD" >USD</option>
                 </select>
+                <div id="currencyErrorMessage" class="text-danger mt-3"></div>
             </div>
             <br></br>
 
@@ -289,8 +291,9 @@
                     <option value="ZAZ">Zaragoza (ZAZ)</option>
                     <option value="ZTH">Zakynthos (ZTH)</option>
                 </select>
+                <div id="departureAirportErrorMessage" class="text-danger mt-3"></div>
             </div>
-        
+            
             <div class="form-group">
                 <label for="arrival">Arrival airport:</label>
                 <small class="form-text text-muted">
@@ -532,6 +535,7 @@
                     <option value="ZAZ">Zaragoza (ZAZ)</option>
                     <option value="ZTH">Zakynthos (ZTH)</option>
                 </select>
+                <div id="arrivalAirportErrorMessage" class="text-danger mt-3"></div>
             </div>
     
             <div class="form-check " >
@@ -543,9 +547,11 @@
             <div class="form-group">
                 <label for="email">Leave your email for receiving personalized hot deals:</label>
                 <input type="text" class="form-control" id="email">
+                <div id="emailErrorMessage" class="text-danger mt-3"></div>
             </div>
             <br></br>
-        
+            
+            <div id="errorMessage" class="text-danger mt-3"></div>
             <button type="button" class="btn btn-primary btn-block" id="findAdventure">Find new adventure!</button>
         </form>
         
@@ -555,10 +561,31 @@
             </div>
         </div>
         
-        <div id="errorMessage" class="text-danger mt-3"></div>
         <br></br>
+        <div id="settings">
+            <br></br>
+            <div id="stayLimits">
+                <div class="form-group">
+                    <label for="min-stay">Minimal stay:</label>
+                    <input type="number" class="form-control" id="min-stay" value="" min="1" max="30">
+                    <div id="minLimitErrorMessage" class="text-danger mt-3"></div>
+                </div>
+                <div class="form-group">
+                    <label for="max-stay">Maximal stay:</label>
+                    <input type="number" class="form-control" id="max-stay" value="" min="1" max="30">
+                    <div id="maxLimitErrorMessage" class="text-danger mt-3"></div>
+                </div>
+                <br></br>
+            </div>
+
+            <br></br>
+            <button type="button" class="btn btn-info btn-block" id="sortByPrice" >Sort by Lowest Price</button>
+            <button type="button" class="btn btn-info btn-block" id="sortByDate" >Sort by Date</button>
+        </div>
         <div id="result" class="text mt-3"></div>
         <br></br>
+
+        
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
