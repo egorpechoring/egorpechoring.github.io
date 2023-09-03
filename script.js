@@ -4,6 +4,7 @@ const progressBarWidth = 100;
 let progressInterval;
 var resultDiv = document.getElementById('result');
 
+let supportedAirports;
 let savedResponseArray;
 
 //  --- after blob comes stuff start ---
@@ -26,6 +27,7 @@ function sortByPrice() {
     }
     savedBlob = blob;
     renderData(savedBlob);
+    //document.getElementById("result").scrollIntoView({behavior: 'smooth'});
 }
 
 function sortByDate() {
@@ -47,6 +49,7 @@ function sortByDate() {
     }
     savedBlob = blob;
     renderData(savedBlob);
+    //document.getElementById("result").scrollIntoView({behavior: 'smooth'});
 }
 
 document.getElementById('sortByPrice').addEventListener('click', sortByPrice);
@@ -92,7 +95,7 @@ function filterByStay(minStay, maxStay){
         savedBlob = blob;
         
         renderData(blob);
-
+        //document.getElementById("result").scrollIntoView({behavior: 'smooth'});
     } 
 }
 
@@ -356,11 +359,10 @@ async function findAdventure() {
             .then(data => {
                 var apiResponseArray = JSON.parse(data);
                 console.log(apiResponseArray);
+                if(returnTicket && arrival === "any"){
+                    apiResponseArray = createFlightPairs(apiResponseArray);
+                }
                 if (apiResponseArray.length !== 0){
-
-                    if(returnTicket && arrival === "any"){
-                        apiResponseArray = createFlightPairs(apiResponseArray);
-                    }
                     
                     apiResponseArray.sort(function(a, b) {
                         var dateA;
@@ -386,8 +388,8 @@ async function findAdventure() {
                     unhideElement('settings');
 
                     renderData(apiResponseArray);
-                } else {
-                    resultDiv.innerHTML = 'No flights between selected airports at all :c';
+                } else  {
+                    resultDiv.innerHTML = 'No flights between selected parameters at all :c';
                 }
             })
             .catch(error => {
@@ -526,7 +528,37 @@ function mobileOrWeb() {
     }
 }
 
+async function loadSupportedAirports() {
+    try {
+      const apiUrl = 'https://www.ryanair.com/api/views/locate/5/airports/en/active';
+      const response = await fetch(apiUrl);
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${apiUrl}`);
+      }
+  
+      const airportData = await response.json();
+  
+      if (!Array.isArray(airportData)) {
+        throw new Error('Invalid data format');
+      }
+  
+      const supportedAirports = airportData.map((airport) => {
+        return `${airport.name} (${airport.code})`;
+      });
+  
+      return supportedAirports;
+    } catch (error) {
+      //showError('Error loading supported airports:', error);
+      return [];
+    }
+}
+  
+
 mobileOrWeb();
-// hideElement('sortByDate');
-// hideElement('sortByPrice');
 hideElement('settings');
+
+loadSupportedAirports()
+    .then((supportedAirports) => {
+        console.log(supportedAirports);
+    });
