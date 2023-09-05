@@ -8,8 +8,76 @@ let supportedAirports;
 let savedResponseArray;
 
 //  --- after blob comes stuff start ---
-
 let savedBlob;
+
+function filterByDate() {
+    const returnTicket = document.getElementById("returnTicket").checked;
+    const minDateValue = minDateInput.value;
+    const maxDateValue = maxDateInput.value;
+
+    let blob;
+
+    //console.log(savedBlob)
+
+    if(!returnTicket){
+        blob = savedBlob.filter((flight) => {
+            const flightDepartureDate = new Date(flight.departureDate);
+            
+            if (!minDateValue && !maxDateValue) {
+                return true; 
+            } else if (minDateValue && !maxDateValue) {
+                const selectedDate = new Date(minDateValue);
+                return flightDepartureDate >= selectedDate;
+            } else if (!minDateValue && maxDateValue) {
+                const selectedDate = new Date(maxDateValue);
+                return flightDepartureDate <= selectedDate;
+            } else if (minDateValue && maxDateValue) {
+                const minDate = new Date(minDateValue);
+                const maxDate = new Date(maxDateValue);
+                return flightDepartureDate >= minDate && flightDepartureDate <= maxDate;
+            } 
+            return true;
+        });
+    } else {
+        blob = savedBlob.filter((innerArray) => {
+
+            const departureDate1 = new Date(innerArray[0].departureDate);
+            const arrivalDate2 = new Date(innerArray[1].arrivalDate);
+
+            if (!minDateValue && !maxDateValue) {
+                return true;
+            } else if (minDateValue && !maxDateValue) {
+                const selectedDate = new Date(minDateValue);
+                return departureDate1 >= selectedDate;
+            } else if (!minDateValue && maxDateValue) {
+                const selectedDate = new Date(maxDateValue);
+                return arrivalDate2 <= selectedDate;
+            } else if (minDateValue && maxDateValue) {
+                const minDate = new Date(minDateValue);
+                const maxDate = new Date(maxDateValue);
+                return departureDate1 >= minDate && arrivalDate2 <= maxDate;
+            }
+            return true;
+        });
+    }   
+
+    //console.log(blob);
+    savedBlob = blob
+    renderData(savedBlob)
+}
+
+
+const minDateInput = document.getElementById('min-date');
+const maxDateInput = document.getElementById('max-date');
+
+minDateInput.addEventListener('change', ()=>{
+    filterByStay()
+    filterByDate()
+});
+maxDateInput.addEventListener('change', ()=>{
+    filterByStay()
+    filterByDate()
+});
 
 function sortByPrice() {
     //filterByStay(document.getElementById('min-stay').value,document.getElementById('max-stay').value)
@@ -55,7 +123,9 @@ function sortByDate() {
 document.getElementById('sortByPrice').addEventListener('click', sortByPrice);
 document.getElementById('sortByDate').addEventListener('click', sortByDate);
 
-function filterByStay(minStay, maxStay){
+function filterByStay(){
+    let minStay = document.getElementById('min-stay').value;
+    let maxStay = document.getElementById('max-stay').value;
     savedBlob = savedResponseArray;
     console.log(`min ${minStay}, max ${maxStay}`)
     if (isNaN(minStay) && isNaN(maxStay)) {
@@ -122,6 +192,8 @@ document.getElementById('min-stay').addEventListener('input', function(event) {
             filterByStay(minValue, maxValue);
         }
     }
+
+    filterByDate()
 });
 
 document.getElementById('max-stay').addEventListener('input', function(event) {
@@ -147,6 +219,8 @@ document.getElementById('max-stay').addEventListener('input', function(event) {
             filterByStay(minValue, maxValue);
         }
     }
+
+    filterByDate()
 });
 
 
@@ -317,8 +391,6 @@ function createFlightPairs(apiResponseA) {
 async function findAdventure() {
     savedResponseArray = [];
     resultDiv.innerHTML = '';
-    // hideElement('sortByDate');
-    // hideElement('sortByPrice');
     hideElement('settings');
     document.getElementById('min-stay').value = '';
     document.getElementById('max-stay').value = '';
@@ -396,8 +468,6 @@ async function findAdventure() {
                     savedBlob = apiResponseArray;
                     
 
-                    // unhideElement('sortByDate');
-                    // unhideElement('sortByPrice');
                     unhideElement('settings');
 
                     renderData(apiResponseArray);
