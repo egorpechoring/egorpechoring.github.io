@@ -10,6 +10,32 @@ let savedResponseArray;
 //  --- after blob comes stuff start ---
 let savedBlob;
 
+function filterByAirport() {
+    if(document.getElementById('filterInputAirport').value === "Any airport"){
+        console.log(savedBlob)
+        renderData(savedBlob)
+        
+    } else {
+        const selectedAirportAr = document.getElementById('filterInputAirport').value.match(/\(([^)]+)\)/);
+        let selectedAirport; 
+        if (selectedAirportAr) {
+            selectedAirport = selectedAirportAr[1]
+            const blob = savedBlob.filter((tuple) => {
+                if(!document.getElementById("returnTicket").checked){
+                    return tuple.To === selectedAirport;
+                } else {
+                    return tuple[0].To === selectedAirport;
+                }
+            });
+            //savedBlob = blob
+            renderData(blob)
+        }
+    }
+
+
+    //console.log(blob);
+}
+
 function filterByDate() {
     const returnTicket = document.getElementById("returnTicket").checked;
     const minDateValue = minDateInput.value;
@@ -73,10 +99,12 @@ const maxDateInput = document.getElementById('max-date');
 minDateInput.addEventListener('change', ()=>{
     filterByStay()
     filterByDate()
+    filterByAirport()
 });
 maxDateInput.addEventListener('change', ()=>{
     filterByStay()
     filterByDate()
+    filterByAirport()
 });
 
 function sortByPrice() {
@@ -194,6 +222,7 @@ document.getElementById('min-stay').addEventListener('input', function(event) {
     }
 
     filterByDate()
+    filterByAirport()
 });
 
 document.getElementById('max-stay').addEventListener('input', function(event) {
@@ -221,6 +250,7 @@ document.getElementById('max-stay').addEventListener('input', function(event) {
     }
 
     filterByDate()
+    filterByAirport()
 });
 
 
@@ -365,6 +395,11 @@ function unhideElement(elementId) {
         document.getElementById("stayLimits").style.display = 'block';
     } else {
         document.getElementById("stayLimits").style.display = 'none';
+    }
+    if (!document.getElementById("searchInputArrival").value){
+        document.getElementById("airport-filter").style.display = 'block';
+    } else {
+        document.getElementById("airport-filter").style.display = 'none';
     }
     const elem = document.getElementById(elementId);
     if (elem) {
@@ -671,7 +706,7 @@ function handleInput(inputElement, suggestionsList) {
     displaySuggestions(matchingAirports, suggestionsList, inputElement);
 }
 
-function displaySuggestions(suggestions, suggestionsList, inputElement) {
+function displaySuggestions(suggestions, suggestionsList, inputElement, filterable=false) {
     suggestionsList.innerHTML = '';
 
     if (suggestions.length === 0) {
@@ -685,6 +720,9 @@ function displaySuggestions(suggestions, suggestionsList, inputElement) {
         li.addEventListener('click', () => {
             inputElement.value = suggestion;
             hideSuggestions(suggestionsList);
+            if(filterable){
+                filterByAirport()
+            }
         });
         suggestionsList.appendChild(li);
     });
@@ -701,10 +739,6 @@ function hideSuggestions(suggestionsList) {
 }
 
 function handleClick(event) {
-    // if (!suggestionsVisibleDeparture && !suggestionsVisibleArrival) {
-    //     return;
-    // }
-
     // Check if the click target is not within the departure or arrival input and suggestions list
     if (
         !searchInputDeparture.contains(event.target) &&
@@ -716,6 +750,42 @@ function handleClick(event) {
         hideSuggestions(suggestionsListArrival);
     }
 }
+
+// airports filter suggestions logic
+
+const filterInputAirport = document.getElementById('filterInputAirport');
+const suggestionsListForFilter = document.getElementById('suggestionsListForFilter');
+
+filterInputAirport.addEventListener('input', () => {
+    handleFilterInput(filterInputAirport, suggestionsListForFilter);
+});
+
+function handleFilterInput(inputElement, suggestionsList) {
+    const userInput = (inputElement.value || '').toLowerCase(); 
+
+    const matchingAirportCodes = [...new Set(savedBlob
+        .flatMap(tuple => {
+            if(!document.getElementById("returnTicket").checked){
+                return tuple.To
+            } else {
+                return tuple[0].To
+            }
+        })
+        .filter(elem => elem && elem.toLowerCase().includes(userInput)))
+    ];
+
+    const matchingAirportNames = matchingAirportCodes.map(code => {
+        const matchingAirport = supportedAirports.find(airport => airport.includes(`(${code})`));
+        return matchingAirport || code; 
+    });
+
+    console.log('Matching Airports:', matchingAirportNames);
+    matchingAirportNames.unshift("Any airport");
+
+    displaySuggestions(matchingAirportNames, suggestionsList, inputElement, true);
+}
+
+
 
 // airports stuff upper
 
