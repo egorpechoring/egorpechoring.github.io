@@ -1,189 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>iFly - Find New Adventure</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="icon" href="favicon.ico.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Your Company Name</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* autocomplete */
-        /* Styles for autocomplete container */
-        .autocomplete {
-            position: relative;
-            width: 100%;
-            z-index: 5; 
-        }
-
-        /* Style for suggestion list */
-        ul {
-            list-style-type: none;
-            padding: 0;
+        body {
             margin: 0;
-            position: absolute;
-            background-color: white;
-            /* border: 1px solid #ccc; */
-            max-height: 300%;
-            overflow-y: auto;
-            width: 100%; 
-            z-index: 5;
-        }
-
-        /* Style for each suggestion item */
-        li {
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        /* Highlight the selected suggestion */
-        li:hover {
-            background-color: #f2f2f2;
-        }
-
-        .departureAirportBox{
-            z-index: 10;
-        }
-        .departureAirportBox ul{
-            z-index: 10;
-        }
-
-        /* . */
-
-        br {
-            height: 1em; 
-            line-height: 0.5em; 
-            content: " ";
-            display: block; 
-        }
-
-        #progress {
-            width: 100%;
-            height: 10px;
-            background-color: #f1f1f1;
-            border-radius: 5px;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
+            color: #fff;
+            background: url('https://via.placeholder.com/1920x1080') center/cover no-repeat;
         }
 
-        #progress-inner {
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            width: 0;
-            background-color: #3498db;
-            transition: width 0.5s ease-in-out;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .landing-content {
+            text-align: center;
+            z-index: 1;
         }
     </style>
 </head>
+
 <body>
-    <div class="container mt-5">
-        <h1 class="text">iFly - Find New Adventure</h1>
 
-        <br></br>
-        <form>
-            <div class="form-group">
-                <label for="limit">Maximum Purchase Limit*</label>
-                <input type="number" class="form-control" id="limit" value="99" min="1" max="200">
-                <div id="limitErrorMessage" class="text-danger mt-3"></div>
-            </div>
+    <div class="overlay"></div>
 
-            <div class="form-group">
-                <label for="currency">Currency*</label>
-                <select class="form-control" id="currency">
-                    <option value="" >Select an option</option>
-                    <option value="EUR" selected>EUR</option>
-                    <option value="USD" >USD</option>
-                </select>
-                <div id="currencyErrorMessage" class="text-danger mt-3"></div>
-            </div>
-            <br></br>
-
-            <div class="form-group autocomplete departureAirportBox">
-                <label for="departure">Departure airport*</label>
-                <input type="text" class="form-control" id="searchInputDeparture" placeholder="Search for airports">
-                <ul id="suggestionsListDeparture"></ul>
-                <div id="departureAirportErrorMessage" class="text-danger mt-3"></div>
-            </div>
-            
-            <div class="form-group autocomplete">
-                <label for="arrival">Arrival airport</label>
-                <small class="form-text text-muted">
-                    keep empty to search cheapest tickets to a random airport in the world
-                </small>
-                <input type="text" class="form-control" id="searchInputArrival" placeholder="Search for airports">
-                <ul id="suggestionsListArrival"></ul>
-                <div id="arrivalAirportErrorMessage" class="text-danger mt-3"></div>
-            </div>         
-    
-            <div class="form-check " >
-                <input type="checkbox" class="form-check-input" id="returnTicket" >
-                <label class="form-check-label" for="returnTicket">Find return ticket as well</label>
-            </div>
-            <br></br>
-        
-            <div class="form-group">
-                <label for="email">Leave your email for receiving personalized hot deals (optional)</label>
-                <input type="text" class="form-control" id="email">
-                <div id="emailErrorMessage" class="text-danger mt-3"></div>
-            </div>
-            <br></br>
-            
-            <div id="errorMessage" class="text-danger mt-3"></div>
-            <button type="button" class="btn btn-primary btn-block" id="findAdventure">Find new adventure!</button>
-        </form>
-        
-        <div class="mt-4">
-            <div id="progress">
-                <div id="progress-inner"></div>
-            </div>
-        </div>
-        
-        <br></br>
-        <div id="settings">
-            <br></br>
-            <div class="row">
-                <div id="dateLimits" class="col">
-                    <div class="form-group">
-                        <label for="min-date">Tickets from date:</label>
-                        <input type="date" class="form-control" id="min-date" >
-                        <div id="minDateLimitErrorMessage" class="text-danger mt-3"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="max-date">Tickets before date:</label>
-                        <input type="date" class="form-control" id="max-date" >
-                        <div id="maxDateLimitErrorMessage" class="text-danger mt-3"></div>
-                    </div>
-                    <br></br>
-                </div>
-                <div id="stayLimits" class="col">
-                    <div class="form-group">
-                        <label for="min-stay">Minimal stay:</label>
-                        <input type="number" class="form-control" id="min-stay" value="" min="1" max="30">
-                        <div id="minLimitErrorMessage" class="text-danger mt-3"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="max-stay">Maximal stay:</label>
-                        <input type="number" class="form-control" id="max-stay" value="" min="1" max="30">
-                        <div id="maxLimitErrorMessage" class="text-danger mt-3"></div>
-                    </div>
-                    <br></br>
-                </div>
-            </div>
-
-            <div id="airport-filter" class="form-group autocomplete ">
-                <label for="filterInputAirport">Filter by destination airport</label>
-                <input type="text" class="form-control" id="filterInputAirport" placeholder="Search for airports to filter">
-                <ul id="suggestionsListForFilter"></ul>
-            </div>
-
-            <br></br>
-            <button type="button" class="btn btn-info btn-block" id="sortByPrice" >Sort by Lowest Price</button>
-            <button type="button" class="btn btn-info btn-block" id="sortByDate" >Sort by Date</button>
-        </div>
-        <div id="result" class="text mt-3"></div>
-        <br></br>
-
-        
+    <div class="container landing-content">
+        <h1 class="display-4">Your Company Name</h1>
+        <p class="lead">One-liner describing your company.</p>
+        <p>Short description about your company.</p>
     </div>
 
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
