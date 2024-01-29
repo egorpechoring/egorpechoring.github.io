@@ -49,43 +49,51 @@
     <div class="container landing-content">
         <h1 class="display-5 text-left">iFly - better than SkyScanner and Google Flights.</h1>
         <br>
-        <!-- section1 -->
-        <p id="Psection1" class="lead text-left">
+        <!-- section0 -->
+        <p id="Psection0" class="lead text-left">
             No one is interested in giving you the cheapest plane tickets, but we are!
             <br>
             * They charge % per your spend, we charge fix per service.
             <br>
             * They are corporates, we are travelers.
         </p>
-        <!-- section2 -->
+        <!-- section1 -->
+        <p id="Psection1" class="lead text-left d-none">
+            Looking flight from ?dropdown? to ?dropdown?
+        </p>
         <p id="Psection2" class="lead text-left d-none">
-            No one is interested in giving you the cheapest plane tickets, but we are!
-            
+            Find return tickets as well. ^^YES^^ ^^NO^^
+        </p>
+        <p id="Psection3" class="lead text-left d-none">
+            What is the minimal (MINIMUM) amount of nights staying at `selected "to" location`
+        </p>
+        <p id="Psection4" class="lead text-left d-none">
+            What is the maximal (MAXIMAL) amount of nights staying at `selected "to" location`
+        </p>
+        <p id="Psection5" class="lead text-left d-none">
+            Travel within dates range: #pickup date# and #pickup date#
+        </p>
+        <p id="Psection6" class="lead text-left d-none">
+            Carefully scrapping for the best deals
+            <!-- Loading spinner using Bootstrap -->
+            <div id="loadingSpinner" class="spinner-border text-primary d-none" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+                        
         </p>
         <div class="d-flex justify-content-start mt-4">
-            <button class="btn btn-outline-light mr-3" onclick="goBack()">Back</button>
-            <div class="border-right mx-3"></div>
-            <button class="btn btn-light text-dark ml-3" onclick="goNext()">Next</button>
+            <button id="backButton" class="btn btn-outline-light mr-3 d-none">Back</button>
+            <div id="formNavigationDivider" class="border-right mx-3 d-none"></div>
+            <button id="nextButton" class="btn btn-light text-dark">Find a flight!</button>
         </div>
+        <br>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-    <script>
-        function goBack() {
-            // Add logic for "Back" button action
-            console.log('Back button clicked');
-        }
-
-        function goNext() {
-            // Add logic for "Next" button action
-            console.log('Next button clicked');
-        }
-    </script>
+    <script type="module" src="/script.js"></script>
 
 </body>
 
