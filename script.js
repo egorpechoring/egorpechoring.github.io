@@ -19,36 +19,74 @@ document.getElementById('nextButton').addEventListener('click', () => {
 let suggestions = document.getElementById('suggestions');
 let airportInput = document.getElementById('airportFrom');
 
-airportInput.addEventListener('input', (event)=>{
+airportInput.addEventListener('input', (event) => {
     suggestions.classList.remove('d-none');
     let inputText = airportInput.value.toLowerCase();
-    
-    while (suggestions.firstChild) {
-        suggestions.removeChild(suggestions.firstChild);
-    }
-    let filteredAirports = formStateManager.supportedAirports.filter(function(airport) {
+
+    let filteredAirports = formStateManager.supportedAirports.filter((airport) => {
         return airport.toLowerCase().includes(inputText);
     });
 
-    let rect = event.target.getBoundingClientRect();
-    suggestions.style.left = (rect.left) + 'px';
-    suggestions.style.top = (rect.bottom  - 1) + 'px';
+    suggestions.innerHTML = ""; // Clear suggestions
 
-    filteredAirports.forEach(function(airport) {
+    let rect = airportInput.getBoundingClientRect();
+    suggestions.style.left = rect.left + 'px';
+    suggestions.style.top = rect.bottom + 'px';
+
+    filteredAirports.forEach((airport) => {
         var listItem = document.createElement("li");
         listItem.textContent = airport;
-        listItem.addEventListener("click", function() {
-            airportInput.value = airport
-            while (suggestions.firstChild) {
-                suggestions.removeChild(suggestions.firstChild);
-            }
+
+        listItem.addEventListener("click", () => {
+            airportInput.value = airport;
             suggestions.classList.add('d-none');
+            airportInput.blur(); // Remove focus after selecting
         });
-        listItem.classList.add('autocomplete-list-element')
+
         suggestions.appendChild(listItem);
     });
+});
+
+// Close suggestions on document click
+document.addEventListener("click", (event) => {
+    if (!event.target.closest('#suggestions') && event.target !== airportInput) {
+        suggestions.classList.add('d-none');
+    }
+});
+
+// let suggestions = document.getElementById('suggestions');
+// let airportInput = document.getElementById('airportFrom');
+
+// airportInput.addEventListener('input', (event)=>{
+//     suggestions.classList.remove('d-none');
+//     let inputText = airportInput.value.toLowerCase();
     
-    airportInput.focus();
-})
+//     while (suggestions.firstChild) {
+//         suggestions.removeChild(suggestions.firstChild);
+//     }
+//     let filteredAirports = formStateManager.supportedAirports.filter(function(airport) {
+//         return airport.toLowerCase().includes(inputText);
+//     });
+
+//     let rect = event.target.getBoundingClientRect();
+//     suggestions.style.left = (rect.left) + 'px';
+//     suggestions.style.top = (rect.bottom  - 1) + 'px';
+
+//     filteredAirports.forEach(function(airport) {
+//         var listItem = document.createElement("li");
+//         listItem.textContent = airport;
+//         listItem.addEventListener("click", function() {
+//             airportInput.value = airport
+//             while (suggestions.firstChild) {
+//                 suggestions.removeChild(suggestions.firstChild);
+//             }
+//             suggestions.classList.add('d-none');
+//         });
+//         listItem.classList.add('autocomplete-list-element')
+//         suggestions.appendChild(listItem);
+//     });
+    
+//     airportInput.focus();
+// })
 
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
