@@ -31,8 +31,8 @@ airportInput.addEventListener('input', (event)=>{
     });
 
     let rect = event.target.getBoundingClientRect();
-    suggestions.style.left = rect.left + 'px';
-    suggestions.style.top = (rect.bottom + window.scrollY) + 'px';
+    suggestions.style.left = (rect.left) + 'px';
+    suggestions.style.top = (rect.bottom  - 1) + 'px';
 
     filteredAirports.forEach(function(airport) {
         var listItem = document.createElement("li");
@@ -48,18 +48,7 @@ airportInput.addEventListener('input', (event)=>{
         suggestions.appendChild(listItem);
     });
     
+    airportInput.focus();
 })
-
-// Hide suggestions when clicking outside the suggestions box
-document.addEventListener('click', function(event) {
-    if (!suggestions.contains(event.target) && event.target !== airportInput) {
-        suggestions.classList.add('d-none');
-    }
-});
-
-// Prevent click on suggestions from triggering the document click event
-suggestions.addEventListener('click', function(event) {
-    event.stopPropagation();
-});
 
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});

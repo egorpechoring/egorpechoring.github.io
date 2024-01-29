@@ -31,20 +31,26 @@ body {
     display: none;
 }
 
+input{
+    border-left: 1vh solid rgba(18, 28, 40, 1);
+    background-color: rgba(0, 0, 0, 0.4);
+    outline: 0 none;
+    color: white !important;
+}
+
 /* Style for the autocomplete */
 .autocomplete-list {
     position: absolute;
     list-style: none;
     padding: unset;
     margin: unset;
-    border: 1vh solid #ccc;
     max-height: 20vh;
     overflow-y: scroll;
-    background-color: rgb(255, 105, 105);
     z-index: 3;
 }
 .autocomplete-list-element {
-    padding: unset;
-    margin: unset;
+    padding: 1vh;
     cursor: pointer;
+    border-left: 1vh solid rgba(18, 28, 40, 1);
+
 }
