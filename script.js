@@ -21,6 +21,10 @@ let suggestions = document.getElementById('suggestions');
 
 let airports = ["airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4","airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4","airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4","airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4", "airport5"];
 
+document.body.addEventListener('click', (event)=>{
+    suggestions.classList.add('d-none');
+})
+
 document.getElementById('airportFrom').addEventListener('click', (event)=>{
     isSuggestionsOpened = !isSuggestionsOpened
 
