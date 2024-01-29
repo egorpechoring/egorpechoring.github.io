@@ -1,0 +1,50 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    /* background: url('https://via.placeholder.com/1920x1080') center/cover no-repeat; */
+    background: url('assets/background.gif') center/cover no-repeat;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.landing-content {
+    text-align: center;
+    z-index: 1;
+    padding: 10%;
+}
+
+#hidden{
+    display: none;
+}
+
+/* Style for the autocomplete */
+.autocomplete-list {
+    position: absolute;
+    list-style: none;
+    padding: unset;
+    margin: unset;
+    border: 1vh solid #ccc;
+    max-height: 20vh;
+    overflow-y: scroll;
+    background-color: rgb(255, 105, 105);
+    z-index: 3;
+}
+.autocomplete-list-element {
+    padding: unset;
+    margin: unset;
+    cursor: pointer;
+}

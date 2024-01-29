@@ -5,6 +5,10 @@ export class FormStateManager {
         this.currentState = 0;
     }
 
+    setSupportedAirports(airports){
+        this.supportedAirports = airports;
+    }
+
     goBack() {
         if (this.currentState > 0) {
             this.currentState--;
@@ -36,7 +40,6 @@ export class FormStateManager {
             }
         }
 
-
         switch (this.currentState) {
             case 0:
                  DisplayState0()
@@ -44,25 +47,44 @@ export class FormStateManager {
             case 1:
                  DisplayState1()
                 break;
-            case 2:
-                 console.log("state - 2")
-                break;
-            case 3:
-                 console.log("state - 3")
-                break;
-            case 4:
-                 console.log("state - 4")
-                break;
             case 5:
                 DisplayState5()
                 break;
             case 6:
                  DisplayState6()
-                this.endingFunction(getFormData(), hideLoadingSpinner);
+                this.endingFunction(getFormData()/*basically just take correct parameters */, hideLoadingSpinner);
                 break;
             default:
                 // Default case does nothing
         }
+    }
+
+    validateStateInput(){
+        let result = {};
+        // let data = {type:"data", payload: undefined};
+        switch (this.currentState) {
+            case 1:
+                // check 'from' and 'to' locations
+                break;
+            case 2:
+                // check 
+                break;
+            case 3:
+                 
+                break;
+            case 4:
+                 
+                break;
+            case 5:
+                
+                break;
+            case 6:
+                 
+                break;
+            default:
+                // Default case does nothing
+        }
+        //some
     }
 }
 
