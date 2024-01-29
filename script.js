@@ -32,17 +32,11 @@ airportInput.addEventListener('input', (event) => {
     });
 
     let rect = event.target.getBoundingClientRect();
-    let spaceBelow = window.innerHeight - rect.bottom;
-    
-    if (spaceBelow > suggestions.clientHeight) {
-        // Enough space below, position suggestions below the input
-        suggestions.style.left = rect.left + 'px';
-        suggestions.style.top = (rect.bottom - 1) + 'px';
-    } else {
-        // Not enough space below, position suggestions above the input
-        suggestions.style.left = rect.left + 'px';
-        suggestions.style.bottom = (window.innerHeight - rect.top - 1) + 'px';
-    }
+    let absoluteTop = rect.top + window.scrollY;
+    let absoluteLeft = rect.left + window.scrollX;
+
+    suggestions.style.left = absoluteLeft + 'px';
+    suggestions.style.top = absoluteTop + rect.height -2 + 'px';
 
     filteredAirports.forEach(function (airport) {
         var listItem = document.createElement("li");
