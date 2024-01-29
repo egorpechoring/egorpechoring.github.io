@@ -95,4 +95,12 @@ document.addEventListener("click", (event) => {
     }
 });
 
+if (window.innerWidth < window.innerHeight) {
+    const inputs = document.querySelectorAll('.w-25');
+    inputs.forEach(input => {
+      input.classList.remove('w-25');
+      input.classList.add('w-50');
+    });
+}
+
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
