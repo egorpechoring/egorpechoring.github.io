@@ -16,44 +16,50 @@ document.getElementById('nextButton').addEventListener('click', () => {
     formStateManager.goNext();
 });
 
-let isSuggestionsOpened = false
 let suggestions = document.getElementById('suggestions');
+let airportInput = document.getElementById('airportFrom');
 
-let airports = ["airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4","airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4","airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4","airport1", "airport2", "airport3air port3airp port3airp ort3", "airport4", "airport5"];
-
-document.body.addEventListener('click', (event)=>{
-    suggestions.classList.add('d-none');
-})
-
-document.getElementById('airportFrom').addEventListener('click', (event)=>{
-    isSuggestionsOpened = !isSuggestionsOpened
-
-    if (isSuggestionsOpened){
-        suggestions.classList.remove('d-none');
-
-        let rect = event.target.getBoundingClientRect();
-        suggestions.style.left = rect.left + 'px';
-        suggestions.style.top = (rect.bottom + window.scrollY) + 'px';
-
-        airports.forEach(function(airport) {
-            var listItem = document.createElement("li");
-            listItem.textContent = airport;
-            listItem.addEventListener("click", function() {
-                isSuggestionsOpened = false
-                while (suggestions.firstChild) {
-                    suggestions.removeChild(suggestions.firstChild);
-                }
-                suggestions.classList.add('d-none');
-            });
-            listItem.classList.add('autocomplete-list-element')
-            suggestions.appendChild(listItem);
-        });
-    } else {
-        while (suggestions.firstChild) {
-            suggestions.removeChild(suggestions.firstChild);
-        }
+airportInput.addEventListener('input', (event)=>{
+    suggestions.classList.remove('d-none');
+    let inputText = airportInput.value.toLowerCase();
+    
+    while (suggestions.firstChild) {
+        suggestions.removeChild(suggestions.firstChild);
     }
-    //set x and y same as document.getElementById('airportFrom')
+    let filteredAirports = formStateManager.supportedAirports.filter(function(airport) {
+        return airport.toLowerCase().includes(inputText);
+    });
+
+    let rect = event.target.getBoundingClientRect();
+    suggestions.style.left = rect.left + 'px';
+    suggestions.style.top = (rect.bottom + window.scrollY) + 'px';
+
+    filteredAirports.forEach(function(airport) {
+        var listItem = document.createElement("li");
+        listItem.textContent = airport;
+        listItem.addEventListener("click", function() {
+            airportInput.value = airport
+            while (suggestions.firstChild) {
+                suggestions.removeChild(suggestions.firstChild);
+            }
+            suggestions.classList.add('d-none');
+        });
+        listItem.classList.add('autocomplete-list-element')
+        suggestions.appendChild(listItem);
+    });
+    
 })
+
+// Hide suggestions when clicking outside the suggestions box
+document.addEventListener('click', function(event) {
+    if (!suggestions.contains(event.target) && event.target !== airportInput) {
+        suggestions.classList.add('d-none');
+    }
+});
+
+// Prevent click on suggestions from triggering the document click event
+suggestions.addEventListener('click', function(event) {
+    event.stopPropagation();
+});
 
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
