@@ -23,39 +23,44 @@ airportInput.addEventListener('input', (event) => {
     suggestions.classList.remove('d-none');
     let inputText = airportInput.value.toLowerCase();
 
-    let filteredAirports = formStateManager.supportedAirports.filter((airport) => {
+    while (suggestions.firstChild) {
+        suggestions.removeChild(suggestions.firstChild);
+    }
+
+    let filteredAirports = formStateManager.supportedAirports.filter(function (airport) {
         return airport.toLowerCase().includes(inputText);
     });
 
-    suggestions.innerHTML = ""; // Clear suggestions
+    let rect = event.target.getBoundingClientRect();
+    let spaceBelow = window.innerHeight - rect.bottom;
+    
+    if (spaceBelow > suggestions.clientHeight) {
+        // Enough space below, position suggestions below the input
+        suggestions.style.left = rect.left + 'px';
+        suggestions.style.top = (rect.bottom - 1) + 'px';
+    } else {
+        // Not enough space below, position suggestions above the input
+        suggestions.style.left = rect.left + 'px';
+        suggestions.style.bottom = (window.innerHeight - rect.top - 1) + 'px';
+    }
 
-    let rect = airportInput.getBoundingClientRect();
-    suggestions.style.left = rect.left + 'px';
-    suggestions.style.top = rect.bottom + 'px';
-
-    filteredAirports.forEach((airport) => {
+    filteredAirports.forEach(function (airport) {
         var listItem = document.createElement("li");
         listItem.textContent = airport;
-
-        listItem.addEventListener("click", () => {
-            airportInput.value = airport;
+        listItem.addEventListener("click", function () {
+            airportInput.value = airport
+            while (suggestions.firstChild) {
+                suggestions.removeChild(suggestions.firstChild);
+            }
             suggestions.classList.add('d-none');
-            airportInput.blur(); // Remove focus after selecting
         });
-
+        listItem.classList.add('autocomplete-list-element')
         suggestions.appendChild(listItem);
     });
-});
 
-// Close suggestions on document click
-document.addEventListener("click", (event) => {
-    if (!event.target.closest('#suggestions') && event.target !== airportInput) {
-        suggestions.classList.add('d-none');
-    }
-});
+    airportInput.focus();
+})
 
-// let suggestions = document.getElementById('suggestions');
-// let airportInput = document.getElementById('airportFrom');
 
 // airportInput.addEventListener('input', (event)=>{
 //     suggestions.classList.remove('d-none');
@@ -88,5 +93,12 @@ document.addEventListener("click", (event) => {
     
 //     airportInput.focus();
 // })
+
+// Close suggestions on document click
+document.addEventListener("click", (event) => {
+    if (!event.target.closest('#suggestions') && event.target !== airportInput) {
+        suggestions.classList.add('d-none');
+    }
+});
 
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
