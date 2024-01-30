@@ -105,10 +105,16 @@ document.addEventListener("click", (event) => {
 });
 
 if (window.innerWidth < window.innerHeight) {
-    const inputs = document.querySelectorAll('.w-50');
+    const inputs = document.querySelectorAll('.w-75');
     inputs.forEach(input => {
-      input.classList.remove('w-50');
-      input.classList.add('w-75');
+        input.classList.remove('w-75');
+        input.classList.add('w-100')
+    })
+
+    const labels = document.querySelectorAll('.w-25');
+    labels.forEach(label => {
+        label.classList.remove('w-25');
+        label.classList.add('w-75');
     });
 }
 
