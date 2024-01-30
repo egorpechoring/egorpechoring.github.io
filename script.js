@@ -105,6 +105,8 @@ document.addEventListener("click", (event) => {
 });
 
 if (window.innerWidth < window.innerHeight) {
+    
+    
     const inputs = document.querySelectorAll('.w-75');
     inputs.forEach(input => {
         input.classList.remove('w-75');
@@ -116,6 +118,28 @@ if (window.innerWidth < window.innerHeight) {
         label.classList.remove('w-25');
         label.classList.add('w-75');
     });
+
+    const labelings = document.querySelectorAll('.labeling');
+    labelings.forEach(labeling => {
+        labeling.classList.remove('d-flex')
+    })
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var video = document.getElementById("myVideo");
+
+    // Muted attribute is set in HTML, but we can also set it programmatically
+    video.muted = true;
+
+    // Play the video when the user interacts with the page
+    document.addEventListener("click", function () {
+        video.play().then(function () {
+            // Autoplay started!
+        }).catch(function (error) {
+            // Autoplay was prevented, handle the error
+            console.error("Autoplay was prevented:", error);
+        });
+    });
+});
 
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
