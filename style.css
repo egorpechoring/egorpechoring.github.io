@@ -47,7 +47,8 @@ input{
     max-height: 20vh;
     overflow-y: scroll;
     z-index: 3;
-    background-color: rgba(0, 0, 0, 0.4);
+    /* background-color: rgba(0, 0, 0, 0.4); */
+    background-color: rgba(18, 28, 40, 0.85);
 }
 .autocomplete-list-element {
     padding: 1vh;

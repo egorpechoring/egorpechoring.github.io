@@ -36,7 +36,7 @@ airportInput.addEventListener('input', (event) => {
     let absoluteLeft = rect.left + window.scrollX;
 
     suggestions.style.left = absoluteLeft + 'px';
-    suggestions.style.top = absoluteTop + rect.height -2 + 'px';
+    suggestions.style.top = absoluteTop + rect.height  + 'px';
     suggestions.style.width = rect.width + 'px';
 
     filteredAirports.forEach(function (airport) {
