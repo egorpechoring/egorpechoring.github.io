@@ -149,15 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Muted attribute is set in HTML, but we can also set it programmatically
     video.muted = true;
 
-    // Play the video when the user interacts with the page
-    document.addEventListener("click", function () {
-        video.play().then(function () {
-            // Autoplay started!
-        }).catch(function (error) {
-            // Autoplay was prevented, handle the error
-            console.error("Autoplay was prevented:", error);
-        });
-    });
+    video.click();
 });
 
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
