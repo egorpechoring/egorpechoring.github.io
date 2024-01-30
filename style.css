@@ -47,10 +47,13 @@ input{
     max-height: 20vh;
     overflow-y: scroll;
     z-index: 3;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .autocomplete-list-element {
     padding: 1vh;
     cursor: pointer;
     border-left: 1vh solid rgba(18, 28, 40, 1);
+
+    color: white !important;
 
 }

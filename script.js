@@ -37,6 +37,7 @@ airportInput.addEventListener('input', (event) => {
 
     suggestions.style.left = absoluteLeft + 'px';
     suggestions.style.top = absoluteTop + rect.height -2 + 'px';
+    suggestions.style.width = rect.width + 'px';
 
     filteredAirports.forEach(function (airport) {
         var listItem = document.createElement("li");
@@ -98,8 +99,8 @@ document.addEventListener("click", (event) => {
 if (window.innerWidth < window.innerHeight) {
     const inputs = document.querySelectorAll('.w-25');
     inputs.forEach(input => {
-      input.classList.remove('w-25');
-      input.classList.add('w-50');
+      input.classList.remove('w-50');
+      input.classList.add('w-75');
     });
 }
 
