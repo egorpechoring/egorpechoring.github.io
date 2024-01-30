@@ -73,7 +73,7 @@ document.addEventListener("click", (event) => {
 });
 
 if (window.innerWidth < window.innerHeight) {
-
+    document.getElementById('footer').classList.add('d-none')
     document.getElementById('footerDivider').classList.remove('d-none')
     
     const leads = document.querySelectorAll('.lead');
