@@ -17,9 +17,18 @@ document.getElementById('nextButton').addEventListener('click', () => {
 });
 
 let suggestions = document.getElementById('suggestions');
-let airportInput = document.getElementById('airportFrom');
+let airportInputFrom = document.getElementById('airportFrom');
+let airportInputTo = document.getElementById('airportTo');
 
-airportInput.addEventListener('input', (event) => {
+airportInputFrom.addEventListener('input', (event) => {
+    suggest(airportInputFrom, event)
+})
+
+airportInputTo.addEventListener('input', (event) => {
+    suggest(airportInputTo, event)
+})
+
+function suggest(airportInput, event){
     suggestions.classList.remove('d-none');
     let inputText = airportInput.value.toLowerCase();
 
@@ -54,8 +63,7 @@ airportInput.addEventListener('input', (event) => {
     });
 
     airportInput.focus();
-})
-
+}
 
 // airportInput.addEventListener('input', (event)=>{
 //     suggestions.classList.remove('d-none');
@@ -91,7 +99,7 @@ airportInput.addEventListener('input', (event) => {
 
 // Close suggestions on document click
 document.addEventListener("click", (event) => {
-    if (!event.target.closest('#suggestions') && event.target !== airportInput) {
+    if (!event.target.closest('#suggestions') && ( event.target !== airportInputFrom || event.target !== airportInputTo)) {
         suggestions.classList.add('d-none');
     }
 });
