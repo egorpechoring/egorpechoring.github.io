@@ -97,7 +97,7 @@ document.addEventListener("click", (event) => {
 });
 
 if (window.innerWidth < window.innerHeight) {
-    const inputs = document.querySelectorAll('.w-25');
+    const inputs = document.querySelectorAll('.w-50');
     inputs.forEach(input => {
       input.classList.remove('w-50');
       input.classList.add('w-75');
