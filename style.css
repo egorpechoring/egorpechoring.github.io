@@ -34,7 +34,7 @@ body {
 
 input{
     border-left: 1vh solid rgba(18, 28, 40, 1);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(18, 28, 40, 0.2);
     outline: 0 none;
     color: rgb(244, 244, 252) !important;
 }
@@ -53,12 +53,18 @@ p {
     background-color: rgba(18, 28, 40, 0.85);
     border-color: rgba(18, 28, 40, 0.85);
 }
+#nextButton:hover{
+    background-color: rgba(18, 28, 40, 0.70);
+}
 
 #backButton{
     border-width: 0.175rem;
-    border-color: rgba(118, 128, 128, 0.85);
-    color: rgba(118, 128, 128, 0.85);
+    border-color: rgba(116, 108, 94, 0.85);
+    color: rgba(190, 190, 185, 1);
 
+}
+#backButton:hover{
+    background-color: rgba(18, 28, 40, 0.2);
 }
 
 .lead-small{
