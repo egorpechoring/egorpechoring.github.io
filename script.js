@@ -72,6 +72,8 @@ document.addEventListener("click", (event) => {
     }
 });
 
+
+// for mobile adaptation
 if (window.innerWidth < window.innerHeight) {
     document.getElementById('footer').classList.add('d-none')
     document.getElementById('footerDivider').classList.remove('d-none')
@@ -112,13 +114,32 @@ if (window.innerWidth < window.innerHeight) {
     })
 }
 
+// video auto play 
 document.addEventListener('DOMContentLoaded', function () {
     var video = document.getElementById("myVideo");
-
-    // Muted attribute is set in HTML, but we can also set it programmatically
     video.muted = true;
-
     video.click();
 });
 
+// airports loading
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
+
+// cookies
+
+// Show the cookie consent modal when the document is loaded
+$(document).ready(function() {
+    $('#cookieConsentModal').modal('show');
+});
+
+// Add your cookie consent functionality here, e.g., setting cookies based on user preferences
+$('#acceptAllCookies').click(function() {
+    // Handle 'Accept All' button click
+    // Add code to set cookies accordingly
+    $('#cookieConsentModal').modal('hide');
+});
+
+$('#acceptNecessaryCookies').click(function() {
+    // Handle 'Accept Necessary' button click
+    // Add code to set necessary cookies
+    $('#cookieConsentModal').modal('hide');
+});
