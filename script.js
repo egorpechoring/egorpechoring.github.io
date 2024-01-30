@@ -105,8 +105,14 @@ document.addEventListener("click", (event) => {
 });
 
 if (window.innerWidth < window.innerHeight) {
+
     
-    
+    const leads = document.querySelectorAll('.lead');
+    leads.forEach(lead => {
+        lead.classList.remove('lead')
+        lead.classList.add('lead-small')
+    })
+
     const inputs = document.querySelectorAll('.w-75');
     inputs.forEach(input => {
         input.classList.remove('w-75');
@@ -122,6 +128,18 @@ if (window.innerWidth < window.innerHeight) {
     const labelings = document.querySelectorAll('.labeling');
     labelings.forEach(labeling => {
         labeling.classList.remove('d-flex')
+    })
+
+    var h1Elements = document.querySelectorAll('h1');
+    h1Elements.forEach(function (element) {
+        // Adjust the font size as needed
+        element.style.fontSize = '2.2rem'; // Set your desired font size
+    });
+
+    const btns = document.querySelectorAll('.btn');
+    btns.forEach(btn =>{
+        btn.classList.remove('btn-lg')
+        // btn.classList.add('btn-md')
     })
 }
 
