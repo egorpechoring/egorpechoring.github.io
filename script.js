@@ -65,38 +65,6 @@ function suggest(airportInput, event){
     airportInput.focus();
 }
 
-// airportInput.addEventListener('input', (event)=>{
-//     suggestions.classList.remove('d-none');
-//     let inputText = airportInput.value.toLowerCase();
-    
-//     while (suggestions.firstChild) {
-//         suggestions.removeChild(suggestions.firstChild);
-//     }
-//     let filteredAirports = formStateManager.supportedAirports.filter(function(airport) {
-//         return airport.toLowerCase().includes(inputText);
-//     });
-
-//     let rect = event.target.getBoundingClientRect();
-//     suggestions.style.left = (rect.left) + 'px';
-//     suggestions.style.top = (rect.bottom  - 1) + 'px';
-
-//     filteredAirports.forEach(function(airport) {
-//         var listItem = document.createElement("li");
-//         listItem.textContent = airport;
-//         listItem.addEventListener("click", function() {
-//             airportInput.value = airport
-//             while (suggestions.firstChild) {
-//                 suggestions.removeChild(suggestions.firstChild);
-//             }
-//             suggestions.classList.add('d-none');
-//         });
-//         listItem.classList.add('autocomplete-list-element')
-//         suggestions.appendChild(listItem);
-//     });
-    
-//     airportInput.focus();
-// })
-
 // Close suggestions on document click
 document.addEventListener("click", (event) => {
     if (!event.target.closest('#suggestions') && ( event.target !== airportInputFrom || event.target !== airportInputTo)) {
@@ -106,6 +74,7 @@ document.addEventListener("click", (event) => {
 
 if (window.innerWidth < window.innerHeight) {
 
+    document.getElementById('footerDivider').classList.remove('d-none')
     
     const leads = document.querySelectorAll('.lead');
     leads.forEach(lead => {
