@@ -37,6 +37,10 @@ input{
     background-color: rgba(18, 28, 40, 0.2);
     outline: 0 none;
     color: rgb(244, 244, 252) !important;
+    
+}
+::placeholder {
+    color: rgba(190, 190, 185, 1);
 }
 
 .display-4{
@@ -62,8 +66,8 @@ p {
 }
 
 #backButton{
-    border-width: 0.175rem;
-    border-color: rgba(116, 108, 94, 0.85);
+    border-width: 0.15rem;
+    border-color: rgba(190, 190, 185, 0.9);
     color: rgba(190, 190, 185, 1);
 
 }
