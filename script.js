@@ -122,7 +122,9 @@ if (window.innerWidth < window.innerHeight) {
 document.addEventListener('DOMContentLoaded', function () {
     var video = document.getElementById("myVideo");
     video.muted = true;
+    document.getElementById('video-container').classList.remove('d-none')
     video.click();
+    
 });
 
 // airports loading
