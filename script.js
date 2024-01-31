@@ -69,6 +69,7 @@ function suggest(airportInput, event){
 // Close suggestions on document click
 document.addEventListener("click", (event) => {
     if (!event.target.closest('#suggestions') && ( event.target !== airportInputFrom || event.target !== airportInputTo)) {
+        document.documentElement.scrollTop = 0;
         suggestions.classList.add('d-none');
     }
 });
