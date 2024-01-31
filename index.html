@@ -117,12 +117,12 @@
         </div>
     
         <div id="Psection3" class="lead text-left d-none">
-            <label for="minimumNights">Stay at <span id="location">blabla</span> at least (MINIMUM) nights:</label>
+            <label for="minimumNights">Stay at <span class="location-place"></span> at least (MINIMUM) nights:</label>
             <input type="number" class="form-control" id="minimumNights" placeholder="Enter minimum nights">
         </div>
     
         <div id="Psection4" class="lead text-left d-none">
-            <label for="maximumNights">Stay at <span id="location">blabla</span> no longer (MAXIMUM) than nights:</label>
+            <label for="maximumNights">Stay at <span id="location-place"></span> no longer (MAXIMUM) than nights:</label>
             <input type="number" class="form-control" id="maximumNights" placeholder="Enter maximum nights">
         </div>
     
@@ -141,6 +141,8 @@
             </div>
                         
         </div>
+
+        <div id="error-place" class="text-ledt error-msg d-none"></div>
 
         <div id="down-buttons-box" class="d-flex justify-content-between mt-4 align-items-center">
             <button id="backButton" class="btn btn-outline-light mr-3 d-none btn-lg w-50">Back</button>

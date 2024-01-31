@@ -10,6 +10,7 @@ export class FormStateManager {
     }
 
     goBack() {
+        DisplayError()
         if (this.currentState > 0) {
             this.currentState--;
             this.updateForm();
@@ -17,7 +18,9 @@ export class FormStateManager {
     }
 
     goNext() {
-        if (this.currentState < 6) {
+        let errorMsg = this.validateStateInput(this.currentState)
+        DisplayError(errorMsg)
+        if (this.currentState < 6 && !errorMsg) {
             this.currentState++;
             this.updateForm();
         }
@@ -27,58 +30,69 @@ export class FormStateManager {
         // Array of section IDs, assuming you have sections from 0 to 5
         const sectionIds = ['section0', 'section1', 'section2', 'section3', 'section4', 'section5', 'section6'];
 
-        // Iterate through all section IDs
-        for (let i = 0; i < sectionIds.length; i++) {
-            const sectionId = sectionIds[i];
-            const sectionElement = document.getElementById(`P${sectionId}`);
 
-            // Check if the current state matches the index, show the section; otherwise, hide it
-            if (i === this.currentState) {
-                sectionElement.classList.remove('d-none');
-            } else {
-                sectionElement.classList.add('d-none');
+            // Iterate through all section IDs
+            for (let i = 0; i < sectionIds.length; i++) {
+                const sectionId = sectionIds[i];
+                const sectionElement = document.getElementById(`P${sectionId}`);
+
+                // Check if the current state matches the index, show the section; otherwise, hide it
+                if (i === this.currentState) {
+                    sectionElement.classList.remove('d-none');
+                } else {
+                    sectionElement.classList.add('d-none');
+                }
             }
-        }
+            switch (this.currentState) {
+                case 0:
+                    DisplayState0()
+                    break;
+                case 1:
+                    DisplayState1()
+                    break;
+                case 5:
+                    DisplayState5()
+                    break;
+                case 6:
+                    DisplayState6()
+                    this.endingFunction(getFormData()/*basically just take correct parameters */, hideLoadingSpinner);
+                    break;
+                default:
+                    // Default case does nothing
+            }
 
-        switch (this.currentState) {
-            case 0:
-                 DisplayState0()
-                break;
-            case 1:
-                 DisplayState1()
-                break;
-            case 5:
-                DisplayState5()
-                break;
-            case 6:
-                 DisplayState6()
-                this.endingFunction(getFormData()/*basically just take correct parameters */, hideLoadingSpinner);
-                break;
-            default:
-                // Default case does nothing
-        }
-
-        UpdateFormProgressBar(this.currentState)
+            UpdateFormProgressBar(this.currentState)
+        
+        
     }
 
-    validateStateInput(){
-        let result = {};
-        // let data = {type:"data", payload: undefined};
-        switch (this.currentState) {
+    validateStateInput(currentState){
+        let targetState = currentState;
+        let result;
+        switch (targetState) {
             case 1:
-                // check 'from' and 'to' locations
+                let airPortFrom = document.getElementById('airportFrom').value;
+                let airPortTo = document.getElementById('airportTo').value;
+                console.log("from: ",airPortFrom)
+                console.log("to: ", airPortTo)
                 break;
             case 2:
-                // check 
+                let isReturn = document.getElementById('returnTicketsCheckbox').checked;
+                console.log("return: ", isReturn)
                 break;
             case 3:
-                 
+                let minimumNights = document.getElementById('minimumNights').value;
+                console.log(minimumNights)
                 break;
             case 4:
-                 
+                let maximumNights = document.getElementById('maximumNights').value;
+                console.log(maximumNights)
                 break;
             case 5:
-                
+                let startDate = document.getElementById('startDate').value;
+                let endDate = document.getElementById('endDate').value;
+                console.log("startDate: ", startDate)
+                console.log("endDate: ", endDate)
                 break;
             case 6:
                  
@@ -86,7 +100,20 @@ export class FormStateManager {
             default:
                 // Default case does nothing
         }
-        //some
+        return result
+    }
+}
+
+// function V 
+
+function DisplayError(msg){
+    let erEl = document.getElementById('error-place');
+    erEl.innerHTML = '';
+    if (msg){
+        erEl.classList.remove('d-none');
+        erEl.innerHTML = msg;
+    } else {
+        erEl.classList.add('d-none');
     }
 }
 

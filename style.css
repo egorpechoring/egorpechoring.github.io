@@ -258,3 +258,10 @@ a{
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
+
+/* Error */
+.error-msg{
+    margin-top: 1rem;
+    color: red;
+    text-align: left;
+}
