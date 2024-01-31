@@ -1,8 +1,8 @@
-export function findTickets(data, callback){
+export function findTickets(data, obj){
     console.log("API calling with data : ")
     console.log(data)
     //
-    setTimeout(callback, 5000);
+    setTimeout(obj.hideLoading, 5000);
     //
     //call api
     //callback()

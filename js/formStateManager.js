@@ -1,7 +1,7 @@
-
 export class FormStateManager {
-    constructor(func) {
+    constructor(func, obj) {
         this.endingFunction = func
+        this.loadingDisplay = obj
         this.currentState = 0;
     }
 
@@ -63,7 +63,8 @@ export class FormStateManager {
                 break;
             case 6:
                 DisplayState6()
-                this.endingFunction(getFormData()/*basically just take correct parameters */, ()=>{});
+                this.loadingDisplay.showLoading()
+                this.endingFunction(getFormData()/*basically just take correct parameters */, this.loadingDisplay);
                 break;
             default:
                 // Default case does nothing
@@ -114,8 +115,6 @@ export class FormStateManager {
     }
 }
 
-// function V 
-
 function DisplayError(msg){
     let erEl = document.getElementById('error-place');
     erEl.innerHTML = '';
@@ -127,50 +126,60 @@ function DisplayError(msg){
     }
 }
 
-
 function UpdateFormProgressBar(state){
-    switch(state){
+    switch(state+1){
+        //case 0:
         case 0:
             document.getElementById('form-progress-box').classList.add('d-none');
             document.getElementById('liner-box').classList.remove('d-none');
             break;
+        //case 1:
         case 1:
-            document.getElementById('form-progress-box').classList.remove('d-none');
-            document.getElementById('liner-box').classList.add('d-none');
+            document.getElementById('form-progress-box').classList.add('d-none');
+            document.getElementById('liner-box').classList.remove('d-none');
+            // document.getElementById('form-progress-box').classList.remove('d-none');
+            // document.getElementById('liner-box').classList.add('d-none');
             document.getElementById('plane1base').classList.remove("d-none");
             document.getElementById('plane1active').classList.add("d-none");
             break;
+        //case 2:
         case 2:
+            document.getElementById('form-progress-box').classList.remove('d-none');
+            document.getElementById('liner-box').classList.add('d-none');
+    
             document.getElementById('plane1base').classList.add("d-none");
             document.getElementById('plane1active').classList.remove("d-none");
             document.getElementById('plane2base').classList.remove("d-none");
             document.getElementById('plane2active').classList.add("d-none");
             break;
+        //case 3:
         case 3:
             document.getElementById('plane2base').classList.add("d-none");
             document.getElementById('plane2active').classList.remove("d-none");
             document.getElementById('plane3base').classList.remove("d-none");
             document.getElementById('plane3active').classList.add("d-none");
             break;
+        //case 4:
         case 4:
             document.getElementById('plane3base').classList.add("d-none");
             document.getElementById('plane3active').classList.remove("d-none");
             document.getElementById('plane4base').classList.remove("d-none");
             document.getElementById('plane4active').classList.add("d-none");
             break;
+        //case 5:
         case 5:
             document.getElementById('plane4base').classList.add("d-none");
             document.getElementById('plane4active').classList.remove("d-none");
             document.getElementById('plane5base').classList.remove("d-none");
             document.getElementById('plane5active').classList.add("d-none");
             break;
+        //case 6:
         case 6:
             document.getElementById('plane5base').classList.add("d-none");
             document.getElementById('plane5active').classList.remove("d-none");
             break;
     }
 }
-
 
 function DisplayState0(){
     console.log("state - 0");
@@ -253,25 +262,33 @@ function DisplayState6() {
         nextButton.classList.add('d-none');
     }
 
-    showLoadingSpinner()
+    // showLoadingSpinner()
 }
 
 // Function to show the loading spinner
-function showLoadingSpinner() {
-    const loadingSpinner = document.getElementById('loadingSpinner');
-    if (loadingSpinner) {
-        loadingSpinner.classList.remove('d-none');
-    }
-}
+// function showLoading() {
+//     let i = 1;
+//     while(true){
+//         if (i == 5){
+//             document.getElementById('plane5base').classList.add("d-none");
+//             document.getElementById('plane5active').classList.remove("d-none");
+//             document.getElementById('plane1base').classList.remove("d-none");
+//             document.getElementById('plane1active').classList.add("d-none");
+//             i = 1;
+//         } else {
+//             document.getElementById('plane'+i+'base').classList.add("d-none");
+//             document.getElementById('plane'+i+'active').classList.remove("d-none");
+//             document.getElementById('plane'+(i+1)+'base').classList.remove("d-none");
+//             document.getElementById('plane'+(i+1)+'active').classList.add("d-none");
+//             i++;
+//         }
+//     }
+// }
 
-// Function to hide the loading spinner
-function hideLoadingSpinner() {
-    const loadingSpinner = document.getElementById('loadingSpinner');
-    if (loadingSpinner) {
-        loadingSpinner.classList.add('d-none');
-    }
-    document.getElementById("Psection6").innerHTML = 'LOL, YOU SCAMMED BY NON-FUNCTIONAL PROTOTYPE'
-}
+// // Function to hide the loading spinner
+// function hideLoading() {
+//     // somehow stop 
+// }
 
 function getFormData(){
     console.log("collecting data from form")
