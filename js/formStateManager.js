@@ -50,6 +50,12 @@ export class FormStateManager {
                 case 1:
                     DisplayState1()
                     break;
+                case 3:
+                    document.getElementById('location-place1').innerText = this.portTo + " " 
+                    break;
+                case 4:
+                    document.getElementById('location-place2').innerText = this.portTo
+                    break;
                 case 5:
                     DisplayState5()
                     break;
@@ -75,6 +81,8 @@ export class FormStateManager {
                 let airPortTo = document.getElementById('airportTo').value;
                 console.log("from: ",airPortFrom)
                 console.log("to: ", airPortTo)
+
+                this.portTo = airPortTo
                 break;
             case 2:
                 let isReturn = document.getElementById('returnTicketsCheckbox').checked;
@@ -82,11 +90,11 @@ export class FormStateManager {
                 break;
             case 3:
                 let minimumNights = document.getElementById('minimumNights').value;
-                console.log(minimumNights)
+                console.log("minimumNights: ",minimumNights)
                 break;
             case 4:
                 let maximumNights = document.getElementById('maximumNights').value;
-                console.log(maximumNights)
+                console.log("maximumNights", maximumNights)
                 break;
             case 5:
                 let startDate = document.getElementById('startDate').value;
