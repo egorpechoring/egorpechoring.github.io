@@ -190,13 +190,24 @@ a{
     color: rgba(118, 128, 128, 1);
 }
 
+#liner-box{
+
+    margin-bottom: 3.75rem !important;
+}
+
 /* Form Progress */
 #form-progress-box {
+    margin-bottom: 0rem !important;
     display: flex;
     flex-direction: row;
     /* align-items: space-between; */
     justify-content: space-between;
-    margin-bottom: 0.75rem;
+    margin-bottom: 3.75rem !important;
+}
+
+#down-buttons-box {
+    margin: 0rem !important;
+    margin-top: 3.75rem !important;
 }
 
 .rotated-icon {

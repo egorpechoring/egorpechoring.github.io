@@ -1,5 +1,6 @@
-import {FormStateManager} from "./js/formStateManager.js"
-import {findTickets, loadSupportedAirports} from "./js/fetchCall.js"
+import { FormStateManager } from "./js/formStateManager.js"
+import { findTickets, loadSupportedAirports } from "./js/fetchCall.js"
+import { generateRandomString } from "./js/helpers.js";
 
 // TODO: mb go into clean code and each file one responsibil.?
 // i mean fetch should call results drawing paginated shit, just pregive him displaying func imported from anothr file
@@ -149,7 +150,11 @@ loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirport
 
 // Show the cookie consent modal when the document is loaded
 $(document).ready(function() {
-    $('#cookieConsentModal').modal('show');
+    let iflyID = localStorage.getItem('ifly-user-id')
+    if (!iflyID){
+        $('#cookieConsentModal').modal('show');
+    }
+    console.log("user ",localStorage.getItem('ifly-user-id'))
 });
 
 // Add your cookie consent functionality here, e.g., setting cookies based on user preferences
@@ -157,10 +162,12 @@ $('#acceptAllCookies').click(function() {
     // Handle 'Accept All' button click
     // Add code to set cookies accordingly
     $('#cookieConsentModal').modal('hide');
+    localStorage.setItem('ifly-user-id', generateRandomString(4));
 });
 
 $('#acceptNecessaryCookies').click(function() {
     // Handle 'Accept Necessary' button click
     // Add code to set necessary cookies
     $('#cookieConsentModal').modal('hide');
+    localStorage.setItem('ifly-user-id', generateRandomString(4));
 });
