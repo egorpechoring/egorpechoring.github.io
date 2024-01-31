@@ -103,11 +103,19 @@ input[type="date"]:focus {
 input[type="date"]:hover {
     background-color: rgba(18, 28, 40, 0.85);
 }
-/* input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-} */
+
+input[type="text"] {
+    background: transparent !important;
+    border: 1px solid rgba(18, 28, 40, 0.85);
+    padding-left: 1vh;
+}
+input[type="text"]:focus {
+    border-color: rgba(18, 28, 40, 0.85); /* Change border color on focus */
+    box-shadow: 0 0 0 transparent; /* Add a box shadow on focus */
+}
+input[type="text"]:hover {
+    background-color: rgba(18, 28, 40, 0.85);
+}
 
 .display-4{
     font-size: 3rem;
@@ -305,6 +313,10 @@ a{
 /* Easy Helpers */
 .paddingless{
     padding: 0px !important;
+}
+
+.above-input{
+    margin-bottom: 0.5vh !important;
 }
 
 .blinking-class {

@@ -143,6 +143,12 @@ if (window.innerWidth < window.innerHeight) {
     progressLines.forEach(line => {
         line.classList.add('progress-line-small')
     })
+
+    const easyAbove = document.querySelectorAll('.easy-above ')
+    easyAbove.forEach(elem => {
+        elem.classList.add('above-input')
+    }) 
+
 }
 
 // airports loading
