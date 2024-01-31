@@ -57,6 +57,8 @@ export class FormStateManager {
             default:
                 // Default case does nothing
         }
+
+        UpdateFormProgressBar(this.currentState)
     }
 
     validateStateInput(){
@@ -88,6 +90,51 @@ export class FormStateManager {
     }
 }
 
+
+function UpdateFormProgressBar(state){
+    switch(state){
+        case 0:
+            document.getElementById('form-progress-box').classList.add('d-none');
+            document.getElementById('liner-box').classList.remove('d-none');
+            break;
+        case 1:
+            document.getElementById('form-progress-box').classList.remove('d-none');
+            document.getElementById('liner-box').classList.add('d-none');
+            document.getElementById('plane1base').classList.remove("d-none");
+            document.getElementById('plane1active').classList.add("d-none");
+            break;
+        case 2:
+            document.getElementById('plane1base').classList.add("d-none");
+            document.getElementById('plane1active').classList.remove("d-none");
+            document.getElementById('plane2base').classList.remove("d-none");
+            document.getElementById('plane2active').classList.add("d-none");
+            break;
+        case 3:
+            document.getElementById('plane2base').classList.add("d-none");
+            document.getElementById('plane2active').classList.remove("d-none");
+            document.getElementById('plane3base').classList.remove("d-none");
+            document.getElementById('plane3active').classList.add("d-none");
+            break;
+        case 4:
+            document.getElementById('plane3base').classList.add("d-none");
+            document.getElementById('plane3active').classList.remove("d-none");
+            document.getElementById('plane4base').classList.remove("d-none");
+            document.getElementById('plane4active').classList.add("d-none");
+            break;
+        case 5:
+            document.getElementById('plane4base').classList.add("d-none");
+            document.getElementById('plane4active').classList.remove("d-none");
+            document.getElementById('plane5base').classList.remove("d-none");
+            document.getElementById('plane5active').classList.add("d-none");
+            break;
+        case 6:
+            document.getElementById('plane5base').classList.add("d-none");
+            document.getElementById('plane5active').classList.remove("d-none");
+            break;
+    }
+}
+
+
 function DisplayState0(){
     console.log("state - 0");
                 
@@ -100,10 +147,6 @@ function DisplayState0(){
 
     if (!backButton.classList.contains('d-none')) {
         backButton.classList.add('d-none');
-    }
-
-    if (!divider.classList.contains('d-none')) {
-        divider.classList.add('d-none');
     }
 
     // Check if nextButton has class ml-3, if yes - remove ml-3
@@ -125,10 +168,6 @@ function DisplayState1(){
 
     if (backButton1.classList.contains('d-none')) {
         backButton1.classList.remove('d-none');
-    }
-
-    if (divider1.classList.contains('d-none')) {
-        divider1.classList.remove('d-none');
     }
 
     // Check if nextButton has class ml-3, if no - add ml-3

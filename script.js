@@ -127,6 +127,19 @@ if (window.innerWidth < window.innerHeight) {
         btn.classList.remove('btn-lg')
         // btn.classList.add('btn-md')
     })
+
+    const progressPlanes = document.querySelectorAll('.rotated-icon')
+    progressPlanes.forEach(plane => {
+        plane.classList.add('rotated-icon-small')
+    })
+    const progressPlanesA = document.querySelectorAll('.rotated-icon-active')
+    progressPlanesA.forEach(plane => {
+        plane.classList.add('rotated-icon-small')
+    })
+    const progressLines = document.querySelectorAll('.progress-line')
+    progressLines.forEach(line => {
+        line.classList.add('progress-line-small')
+    })
 }
 
 // airports loading
