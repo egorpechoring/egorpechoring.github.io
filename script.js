@@ -75,6 +75,10 @@ document.addEventListener("click", (event) => {
 
 // for mobile adaptation
 if (window.innerWidth < window.innerHeight) {
+    document.getElementById('liner1').classList.remove('d-none')
+    document.getElementById('liner2').classList.remove('d-none')
+    document.getElementById('liner').classList.add('d-none')
+
     document.getElementById('footer').classList.add('d-none')
     document.getElementById('footerDivider').classList.remove('d-none')
     

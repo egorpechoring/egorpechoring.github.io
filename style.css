@@ -25,7 +25,7 @@ body {
 .landing-content {
     text-align: center;
     z-index: 1;
-    padding: 10%;
+    padding: 7%;
 }
 
 #hidden{
@@ -37,6 +37,10 @@ input{
     background-color: rgba(18, 28, 40, 0.2);
     outline: 0 none;
     color: rgb(244, 244, 252) !important;
+}
+
+.display-4{
+    font-size: 3rem;
 }
 
 .lead{
