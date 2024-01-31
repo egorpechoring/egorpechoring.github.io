@@ -73,8 +73,19 @@ document.addEventListener("click", (event) => {
 });
 
 
+// video auto play 
+document.addEventListener('DOMContentLoaded', function () {
+    var video = document.getElementById("myVideo");
+    video.muted = true;
+    video.click();
+    
+});
+
 // for mobile adaptation
 if (window.innerWidth < window.innerHeight) {
+
+    document.getElementById('landing-content').style.padding = "10%";
+
     document.getElementById('liner1').classList.remove('d-none')
     document.getElementById('liner2').classList.remove('d-none')
     document.getElementById('liner').classList.add('d-none')
@@ -117,15 +128,6 @@ if (window.innerWidth < window.innerHeight) {
         // btn.classList.add('btn-md')
     })
 }
-
-// video auto play 
-document.addEventListener('DOMContentLoaded', function () {
-    var video = document.getElementById("myVideo");
-    video.muted = true;
-    document.getElementById('video-container').classList.remove('d-none')
-    video.click();
-    
-});
 
 // airports loading
 loadSupportedAirports().then((airports) => {formStateManager.setSupportedAirports(airports)});
