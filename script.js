@@ -1,12 +1,12 @@
 import { FormStateManager } from "./js/formStateManager.js"
 import { findTickets, loadSupportedAirports } from "./js/fetchCall.js"
 import { generateRandomString } from "./js/helpers.js";
-import { loadingSpinner } from "./js/helpers.js";
 
 // TODO: mb go into clean code and each file one responsibil.?
 // i mean fetch should call results drawing paginated shit, just pregive him displaying func imported from anothr file
 
-const formStateManager = new FormStateManager(findTickets, loadingSpinner);
+// const loadingSpinner = new LoadingSpinner();
+const formStateManager = new FormStateManager(findTickets);
 
 // Handle "Back" button click
 document.getElementById('backButton').addEventListener('click', () => {

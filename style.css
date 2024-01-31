@@ -306,3 +306,26 @@ a{
 .paddingless{
     padding: 0px !important;
 }
+
+.blinking-class {
+    animation: moveAndBlink 4s linear infinite;
+}
+
+@keyframes moveAndBlink {
+    0%, 100% {
+        opacity: 1;
+        /* transform: translateX(0); */
+    }
+    25% {
+        opacity: 0.25;
+        /* transform: translateX(10px); */
+    }
+    50% {
+        opacity: 1;
+        /* transform: translateX(0); */
+    }
+    75% {
+        opacity: 0.25;
+        /* transform: translateX(-10px); */
+    }
+}

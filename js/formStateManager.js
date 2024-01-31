@@ -1,7 +1,6 @@
 export class FormStateManager {
-    constructor(func, obj) {
+    constructor(func) {
         this.endingFunction = func
-        this.loadingDisplay = obj
         this.currentState = 0;
     }
 
@@ -63,8 +62,7 @@ export class FormStateManager {
                 break;
             case 6:
                 DisplayState6()
-                this.loadingDisplay.showLoading()
-                this.endingFunction(getFormData()/*basically just take correct parameters */, this.loadingDisplay);
+                this.endingFunction({"key":"value"});
                 break;
             default:
                 // Default case does nothing

@@ -1,11 +1,47 @@
-export function findTickets(data, obj){
-    console.log("API calling with data : ")
-    console.log(data)
-    //
-    setTimeout(obj.hideLoading, 5000);
-    //
-    //call api
-    //callback()
+function fetchData(url) {
+  return new Promise((resolve, reject) => {
+    // Simulate a longer time of waiting (e.g., 5 seconds)
+    setTimeout(() => {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Data:', data);
+          resolve(data)
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          reject(error);
+        });
+      // Update boo inside the timeout function
+    }, 5000); // 5000 milliseconds (5 seconds)
+  });
+}
+
+export function findTickets(data) {
+  console.log(data)
+  // blinking-class
+  const progressPlanesA = document.querySelectorAll('.rotated-icon-active')
+  
+  progressPlanesA.forEach((plane, index) => {
+    setTimeout(() => {
+      plane.classList.add('blinking-class');
+    }, index * 200); // Delay increases with each element
+  });
+
+  // Start the fetch request
+  const fetchPromise = fetchData('https://jsonplaceholder.typicode.com/posts/');
+  
+  fetchPromise
+    .then(data => {
+        progressPlanesA.forEach((plane, index) => {
+          plane.classList.remove('blinking-class');
+        })
+        document.getElementById('landing-content').classList.add('d-none')
+        document.getElementById('results-content').classList.remove('d-none')
+      })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
 }
 
 export async function loadSupportedAirports() {
