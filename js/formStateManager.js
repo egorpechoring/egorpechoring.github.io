@@ -28,47 +28,49 @@ export class FormStateManager {
 
     updateForm() {
         // Array of section IDs, assuming you have sections from 0 to 5
-        const sectionIds = ['section0', 'section1', 'section2', 'section3', 'section4', 'section5', 'section6'];
+        const sectionIds = ['section0', 'section1', 'section2', 'section3', 'section4', 'section5', 
+         'section6'
+        ];
 
 
-            // Iterate through all section IDs
-            for (let i = 0; i < sectionIds.length; i++) {
-                const sectionId = sectionIds[i];
-                const sectionElement = document.getElementById(`P${sectionId}`);
+        // Iterate through all section IDs
+        for (let i = 0; i < sectionIds.length; i++) {
+            const sectionId = sectionIds[i];
+            const sectionElement = document.getElementById(`P${sectionId}`);
 
-                // Check if the current state matches the index, show the section; otherwise, hide it
-                if (i === this.currentState) {
-                    sectionElement.classList.remove('d-none');
-                } else {
-                    sectionElement.classList.add('d-none');
-                }
+            // Check if the current state matches the index, show the section; otherwise, hide it
+            if (i === this.currentState) {
+                sectionElement.classList.remove('d-none');
+            } else {
+                sectionElement.classList.add('d-none');
             }
-            switch (this.currentState) {
-                case 0:
-                    DisplayState0()
-                    break;
-                case 1:
-                    DisplayState1()
-                    break;
-                case 3:
-                    document.getElementById('location-place1').innerText = this.portTo + " " 
-                    break;
-                case 4:
-                    document.getElementById('location-place2').innerText = this.portTo
-                    break;
-                case 5:
-                    DisplayState5()
-                    break;
-                case 6:
-                    DisplayState6()
-                    this.endingFunction(getFormData()/*basically just take correct parameters */, hideLoadingSpinner);
-                    break;
-                default:
-                    // Default case does nothing
-            }
+        }
+        switch (this.currentState) {
+            case 0:
+                DisplayState0()
+                break;
+            case 1:
+                DisplayState1()
+                break;
+            case 3:
+                document.getElementById('location-place1').innerText = this.portTo + " " 
+                break;
+            case 4:
+                document.getElementById('location-place2').innerText = this.portTo
+                break;
+            case 5:
+                DisplayState5()
+                break;
+            case 6:
+                DisplayState6()
+                this.endingFunction(getFormData()/*basically just take correct parameters */, ()=>{});
+                break;
+            default:
+                // Default case does nothing
+        }
 
-            UpdateFormProgressBar(this.currentState)
-        
+        UpdateFormProgressBar(this.currentState)
+    
         
     }
 

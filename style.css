@@ -91,6 +91,24 @@ input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+input[type="date"] {
+    background: transparent !important;
+    border: 1px solid rgba(18, 28, 40, 0.85);
+    width: 18%;
+}
+input[type="date"]:focus {
+    border-color: rgba(18, 28, 40, 0.85); /* Change border color on focus */
+    box-shadow: 0 0 0 transparent; /* Add a box shadow on focus */
+}
+input[type="date"]:hover {
+    background-color: rgba(18, 28, 40, 0.85);
+}
+/* input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+} */
+
 .display-4{
     font-size: 3rem;
 }
@@ -216,7 +234,6 @@ a{
 
 /* Form Progress */
 #form-progress-box {
-    margin-bottom: 0rem !important;
     display: flex;
     flex-direction: row;
     /* align-items: space-between; */

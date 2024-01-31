@@ -19,26 +19,26 @@
 
 <body>
     <!-- Cookie Consent Modal -->
-<div class="modal fade" id="cookieConsentModal" tabindex="-1" role="dialog" aria-labelledby="cookieConsentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title text-dark" id="cookieConsentModalLabel">Cookie Consent</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+    <div class="modal fade" id="cookieConsentModal" tabindex="-1" role="dialog" aria-labelledby="cookieConsentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title text-dark" id="cookieConsentModalLabel">Cookie Consent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <p class="text-dark">We use cookies to enhance your browsing experience and provide personalized content. By clicking "Accept All," you consent to the use of all cookies. If you prefer to manage your cookie preferences, click  
+                    <a href="https://www.google.com/search?q=trust+dictionary+meaning&rlz=1C5CHFA_enEE986EE1005&oq=trust+dictionary&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyCQgAEEUYORiABDIHCAEQABiABDIICAIQABgWGB4yCAgDEAAYFhgeMggIBBAAGBYYHjIICAUQABgWGB4yCAgGEAAYFhgeMggIBxAAGBYYHtIBCDgxNjVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8" target="_blank">Read More</a>.</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn csm btn-info" id="acceptNecessaryCookies">Only Necessary</button>
+                <button type="button" class="btn csm btn-primary" id="acceptAllCookies">Accept All</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <p class="text-dark">We use cookies to enhance your browsing experience and provide personalized content. By clicking "Accept All," you consent to the use of all cookies. If you prefer to manage your cookie preferences, click  
-              <a href="https://www.google.com/search?q=trust+dictionary+meaning&rlz=1C5CHFA_enEE986EE1005&oq=trust+dictionary&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyCQgAEEUYORiABDIHCAEQABiABDIICAIQABgWGB4yCAgDEAAYFhgeMggIBBAAGBYYHjIICAUQABgWGB4yCAgGEAAYFhgeMggIBxAAGBYYHtIBCDgxNjVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8" target="_blank">Read More</a>.</p>
-        </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn csm btn-info" id="acceptNecessaryCookies">Only Necessary</button>
-          <button type="button" class="btn csm btn-primary" id="acceptAllCookies">Accept All</button>
-        </div>
-      </div>
     </div>
-  </div>
 
     <!-- Video Background -->
     <div id="video-container" class="video-container">
@@ -124,8 +124,7 @@
                     <span class="col-auto paddingless">&#160</span>
                     <span class="col-auto paddingless">at&#160</span>
                     <span class="col-auto paddingless">least&#160</span> 
-                    <span class="col-auto paddingless">(MINIMUM)</span>
-                    <span class="col-auto paddingless">&#160&#160</span>
+                    <span class="col-auto paddingless">(MINIMUM)&#160&#160</span>
                     <input type="number" class="form-control col-auto" id="minimumNights" placeholder="???" style="display: -webkit-box!important;">
                     <span class="col-auto paddingless">&#160&#160</span>
                     <span class="col-auto paddingless">nights.</span>
@@ -142,28 +141,39 @@
                     <span class="col-auto paddingless">no&#160</span>
                     <span class="col-auto paddingless">longer&#160</span>
                     <span class="col-auto paddingless">(MAXIMUM)&#160</span>
-                    <span class="col-auto paddingless">than</span>
-                    <span class="col-auto paddingless">&#160&#160</span>
+                    <span class="col-auto paddingless">than&#160&#160</span>
                     <input type="number" class="form-control col-auto" id="maximumNights" placeholder="???">
                     <span class="col-auto paddingless">&#160&#160</span>
                     <span class="col-auto paddingless">nights.</span>
                 </div>
             </label>
         </div>
-    
+
         <div id="Psection5" class="lead text-left d-none">
-            <label for="startDate">Travel within dates range:</label>
-            <input type="date" class="form-control" id="startDate">
-            <span>and</span>
-            <input type="date" class="form-control" id="endDate">
+            <div style="width: 100%;">
+                <span class="col-auto paddingless">Travel somewhere between&#160&#160</span>
+                <input type="date" class="form-control col-auto" style="width: 100%;" id="startDate">
+            </div>
+            <br>
+            <div style="width: 100%;">
+                <span class="col-auto paddingless">and&#160&#160</span>
+                <input type="date" class="form-control col-auto" style="width: 100%;" id="endDate">
+            </div>
         </div>
+    
+        <!-- <div id="Psection5" class="lead text-left d-none">
+            <label for="startDate">Travel within dates range:</label>
+            <input type="date" class="form-control w-25" id="startDate">
+            <span>and</span>
+            <input type="date" class="form-control w-25 " id="endDate">
+        </div> -->
 
         <div id="Psection6" class="lead text-left d-none">
-            Carefully scrapping for the best deals
-            <!-- Loading spinner using Bootstrap -->
+            <!-- Carefully scrapping for the best deals
+            Loading spinner using Bootstrap
             <div id="loadingSpinner" class="spinner-border text-primary d-none" role="status">
                 <span class="sr-only">Loading...</span>
-            </div>
+            </div> -->
                         
         </div>
 
