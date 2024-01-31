@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>IFly - Best Flights Deals</title>
+    <title>IFly - Best Flight Deals</title>
 
     <!-- Favicon -->
     <link rel="icon" href="assets/favicon.ico.png" type="image/x-icon">
@@ -109,26 +109,39 @@
                 <input id="airportTo" class="w-75" type="text" placeholder="Select Airport">             
             </div>
         </div>
-        <p id="Psection2" class="lead text-left d-none">
-            Find return tickets as well. ^^YES^^ ^^NO^^
-        </p>
-        <p id="Psection3" class="lead text-left d-none">
-            What is the minimal (MINIMUM) amount of nights staying at `selected "to" location`
-        </p>
-        <p id="Psection4" class="lead text-left d-none">
-            What is the maximal (MAXIMAL) amount of nights staying at `selected "to" location`
-        </p>
-        <p id="Psection5" class="lead text-left d-none">
-            Travel within dates range: #pickup date# and #pickup date#
-        </p>
-        <p id="Psection6" class="lead text-left d-none">
+
+        <div id="Psection2" class="lead text-left d-none">
+            <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input" type="checkbox" id="returnTicketsCheckbox" checked>
+                <label class="form-check-label" for="returnTicketsCheckbox">Find return tickets as well.</label>
+            </div>
+        </div>
+    
+        <div id="Psection3" class="lead text-left d-none">
+            <label for="minimumNights">Stay at <span id="location">blabla</span> at least (MINIMUM) nights:</label>
+            <input type="number" class="form-control" id="minimumNights" placeholder="Enter minimum nights">
+        </div>
+    
+        <div id="Psection4" class="lead text-left d-none">
+            <label for="maximumNights">Stay at <span id="location">blabla</span> no longer (MAXIMUM) than nights:</label>
+            <input type="number" class="form-control" id="maximumNights" placeholder="Enter maximum nights">
+        </div>
+    
+        <div id="Psection5" class="lead text-left d-none">
+            <label for="startDate">Travel within dates range:</label>
+            <input type="date" class="form-control" id="startDate">
+            <span>and</span>
+            <input type="date" class="form-control" id="endDate">
+        </div>
+
+        <div id="Psection6" class="lead text-left d-none">
             Carefully scrapping for the best deals
             <!-- Loading spinner using Bootstrap -->
             <div id="loadingSpinner" class="spinner-border text-primary d-none" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
                         
-        </p>
+        </div>
         <br>
         <div class="d-flex justify-content-between mt-4">
             <button id="backButton" class="btn btn-outline-light mr-3 d-none btn-lg w-50">Back</button>
@@ -144,7 +157,7 @@
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>\
     <!-- Custom -->
     <script type="module" src="/script.js"></script>
 
