@@ -77,9 +77,9 @@
             <img id="plane2base" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon">
             <img id="plane2active" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon-active d-none">
             <div class="progress-line"></div>
-            <img id="plane3base" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon">
-            <img id="plane3active" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon-active d-none">
-            <div class="progress-line"></div>
+            <!-- <img id="plane3base" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon">
+            <img id="plane3active" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon-active d-none"> 
+            <div class="progress-line"></div> -->
             <img id="plane4base" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon">
             <img id="plane4active" src="assets/favicon.ico.png" alt="Icon" class="rotated-icon-active d-none">
             <div class="progress-line"></div>
@@ -100,51 +100,65 @@
 
             <div class="labeling d-flex">
                 <div class="easy-above d-flex align-items-center w-25">Departure from:</div>
-                <input id="airportFrom" class="w-75" type="text" placeholder="Select Airport">
+                <input id="airportFrom" class="w-75" type="text" placeholder="Select Airport"  autocomplete="off">
             </div>
             <br>
             <div class="labeling d-flex">
                 <div class="easy-above d-flex align-items-center w-25">Arrive to:</div>
-                <input id="airportTo" class="w-75" type="text" placeholder="Select Airport">             
+                <input id="airportTo" class="w-75" type="text" placeholder="Select Airport"  autocomplete="off">             
             </div>
         </div>
 
         <div id="Psection2" class="lead text-left d-none">
-            <div class="form-check form-check-inline custom-checkbox">
-                <input class="form-check-input" type="checkbox" id="returnTicketsCheckbox">
+            <div class="form-check form-check-inline custom-checkbox d-flex align-items-start">
+                <input class="form-check-input align-top" type="checkbox" id="returnTicketsCheckbox">
                 <label class="form-check-label" for="returnTicketsCheckbox">Find return tickets as well.</label>
+            </div>
+            <br>
+            <div class="form-check form-check-inline custom-checkbox d-flex align-items-start">
+                <input class="form-check-input" type="checkbox" id="exactDates">
+                <label class="form-check-label" for="exactDates">Find tickets in the range of dates, instead of specific strict dates, to find better deals.</label>
             </div>
         </div>
     
         <div id="Psection3" class="lead text-left d-none">
-            <label for="minimumNights" class="d-flex align-items-center">
+            <!-- <label for="minimumNights" class="d-flex align-items-center">
                 <div class="row align-items-center" style="margin: 0px;">
                     <span class="col-auto paddingless">Stay at &#160</span>
                     <span id="location-place1" class="col-auto paddingless"></span>
                     <span class="col-auto paddingless">&#160</span>
                     <span class="col-auto paddingless">at&#160</span>
                     <span class="col-auto paddingless">least&#160&#160</span> 
-                    <!-- <span class="col-auto paddingless">(MINIMUM)&#160&#160</span> -->
+                    <span class="col-auto paddingless">(MINIMUM)&#160&#160</span>
                     <input type="number" class="form-control col-auto" id="minimumNights" placeholder="???" style="display: -webkit-box!important;">
                     <span class="col-auto paddingless">&#160&#160</span>
                     <span class="col-auto paddingless">nights.</span>
                 </div>
-            </label>
+            </label> -->
         </div>
         
         <div id="Psection4" class="lead text-left d-none">
-            <label for="maximumNights" class="d-flex align-items-center">
+            <label for="" class="d-flex align-items-center">
                 <div class="row align-items-center" style="margin: 0px;">
                     <span class="col-auto paddingless">Stay at &#160</span>
                     <span id="location-place2" class="col-auto paddingless"></span>
                     <span class="col-auto paddingless">&#160</span>
+                    <span class="col-auto paddingless">at&#160</span>
+                    <span class="col-auto paddingless">least&#160<!--&#160--></span> 
+                    <!-- <span class="col-auto paddingless">(MINIMUM)&#160&#160</span> -->
+                    <input type="number" class="form-control col-auto" id="minimumNights" placeholder="???" style="display: -webkit-box!important;" autocomplete="off">
+                    <!-- <span class="col-auto paddingless">&#160&#160</span> -->
+                    <span class="col-auto paddingless">nights&#160</span>
+                    <span class="col-auto paddingless">(minimum)&#160</span>
+                    <span class="col-auto paddingless">and&#160</span>
                     <span class="col-auto paddingless">no&#160</span>
                     <span class="col-auto paddingless">longer&#160</span>
                     <!-- <span class="col-auto paddingless">(MAXIMUM)&#160</span> -->
-                    <span class="col-auto paddingless">than&#160&#160</span>
-                    <input type="number" class="form-control col-auto" id="maximumNights" placeholder="???">
-                    <span class="col-auto paddingless">&#160&#160</span>
-                    <span class="col-auto paddingless">nights.</span>
+                    <span class="col-auto paddingless">than&#160<!--&#160--></span>
+                    <input type="number" class="form-control col-auto" id="maximumNights" placeholder="???" autocomplete="off">
+                    <!-- <span class="col-auto paddingless">&#160&#160</span> -->
+                    <span class="col-auto paddingless">nights</span>
+                    <span class="col-auto paddingless">(maximum).</span>
                 </div>
             </label>
         </div>
@@ -152,12 +166,12 @@
         <div id="Psection5" class="lead text-left d-none">
             <div style="width: 100%;">
                 <div class="col-auto paddingless above-input">Travel somewhere between&#160&#160</div>
-                <input type="date" class="form-control col-auto" style="width: 100%;" id="startDate">
+                <input type="date" class="form-control col-auto" style="width: 100%;" id="startDate" autocomplete="off">
             </div>
             <br>
             <div style="width: 100%;">
                 <div class="col-auto paddingless above-input">and&#160&#160</div>
-                <input type="date" class="form-control col-auto" style="width: 100%;" id="endDate">
+                <input type="date" class="form-control col-auto" style="width: 100%;" id="endDate" autocomplete="off">
             </div>
         </div>
     

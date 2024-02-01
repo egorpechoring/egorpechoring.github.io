@@ -10,6 +10,9 @@ export class FormStateManager {
 
     goBack() {
         DisplayError()
+        if(this.currentState === 4){
+            this.currentState--
+        }
         if (this.currentState === 5 && !this.isReturn){
             this.currentState -=2 
             SkipStepsBack()
@@ -26,6 +29,9 @@ export class FormStateManager {
         if (this.currentState === 2 && !this.isReturn){
             this.currentState +=2 
             SkipStepsForward()
+        }
+        if(this.currentState === 2){
+            this.currentState++
         }
         if (this.currentState < 6 && !errorMsg) {
             this.currentState++;
@@ -141,15 +147,17 @@ export class FormStateManager {
 
                 this.isReturn = r
                 break;
-            // case 3:
-            //     let minimumNights = document.getElementById('minimumNights').value;
-
-            //     // minimumNights could not be negative number and could not be more than 30
-
-            //     console.log("minimumNights: ",minimumNights)
-            //     this.minNights = minimumNights
-            //     break;
             case 3:
+                // let minimumNights = document.getElementById('minimumNights').value;
+                
+                // if (!isNaN(minimumNights) && minimumNights > 0 && minimumNights <= 27) {
+                //     console.log("minimumNights: ", minimumNights);
+                //     this.minNights = minimumNights;
+                // } else {
+                //     result = 'Minimum staying nights should be a positive integer not exceeding 27';
+                // }
+                // break; 
+            case 4:
                 let minimumNights = document.getElementById('minimumNights').value;
                 
                 if (!isNaN(minimumNights) && minimumNights > 0 && minimumNights <= 27) {
@@ -157,9 +165,9 @@ export class FormStateManager {
                     this.minNights = minimumNights;
                 } else {
                     result = 'Minimum staying nights should be a positive integer not exceeding 27';
+                    break; 
                 }
-                break; 
-            case 4:
+
                 let maximumNights = document.getElementById('maximumNights').value;
 
                 if (!isNaN(maximumNights) && maximumNights > 0 && maximumNights <= 28) {
@@ -267,15 +275,15 @@ function UpdateFormProgressBar(state){
         case 3:
             document.getElementById('plane2base').classList.add("d-none");
             document.getElementById('plane2active').classList.remove("d-none");
-            document.getElementById('plane3base').classList.remove("d-none");
-            document.getElementById('plane3active').classList.add("d-none");
+            document.getElementById('plane4base').classList.remove("d-none");
+            document.getElementById('plane4active').classList.add("d-none");
             break;
         //case 4:
         case 4:
-            document.getElementById('plane3base').classList.add("d-none");
-            document.getElementById('plane3active').classList.remove("d-none");
-            document.getElementById('plane4base').classList.remove("d-none");
-            document.getElementById('plane4active').classList.add("d-none");
+            // document.getElementById('plane2base').classList.add("d-none");
+            // document.getElementById('plane2active').classList.remove("d-none");
+            // document.getElementById('plane4base').classList.remove("d-none");
+            // document.getElementById('plane4active').classList.add("d-none");
             break;
         //case 5:
         case 5:
@@ -377,15 +385,15 @@ function DisplayState6() {
 }
 
 function SkipStepsForward(){
-    document.getElementById('plane3base').classList.add("d-none");
-    document.getElementById('plane3active').classList.remove("d-none");
+    // document.getElementById('plane3base').classList.add("d-none");
+    // document.getElementById('plane3active').classList.remove("d-none");
     document.getElementById('plane4base').classList.add("d-none");
     document.getElementById('plane4active').classList.remove("d-none");
 } 
 
 function SkipStepsBack(){
-    document.getElementById('plane3base').classList.remove("d-none");
-    document.getElementById('plane3active').classList.add("d-none");
+    // document.getElementById('plane3base').classList.remove("d-none");
+    // document.getElementById('plane3active').classList.add("d-none");
     document.getElementById('plane4base').classList.remove("d-none");
     document.getElementById('plane4active').classList.add("d-none");
     document.getElementById('plane5base').classList.remove("d-none");
