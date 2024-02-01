@@ -70,7 +70,14 @@ export class FormStateManager {
                 break;
             case 6:
                 DisplayState6()
-                this.endingFunction({"key":"value"});
+                let depar = this.portFrom.match(/\(([^)]+)\)/)
+                let arriv = this.portTo.match(/\(([^)]+)\)/);
+                this.endingFunction({
+                    "limit":160, 
+                    "departure":depar[1],
+                    "arrival":arriv[1],
+                    "isreturn":this.isReturn
+                });
                 break;
             default:
                 // Default case does nothing
@@ -167,18 +174,6 @@ export class FormStateManager {
                     break; 
                 }
                 break; 
-            // case 5:
-            //     let startDate = document.getElementById('startDate').value;
-            //     let endDate = document.getElementById('endDate').value;
-            //     console.log("startDate: ", startDate)
-            //     console.log("endDate: ", endDate)
-
-            //     // startDate should be at least today or grater
-            //     // startDate should not be greater than today + 6 month
-            //     // endDate should be grater than startDate
-            //     // endDate should not be greater than today + 6 month
-
-            //     break;
             case 5:
                 let startDateInput = document.getElementById('startDate').value;
                 let endDateInput = document.getElementById('endDate').value;

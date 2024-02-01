@@ -155,6 +155,38 @@ p {
 }
 
 
+#results-content {
+    overflow: scroll;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
+}
+.daddy-size{
+    width: 100%;
+}
+
+#results-content::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+#results-content::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Color of the thumb */
+}
+
+#results-content:hover::-webkit-scrollbar-thumb {
+    background-color: #888; /* Change color on hover */
+}
+
+.card{
+    margin-left: 10%;
+    margin-right: 10%;
+    /* width: 80%; */
+    margin-bottom: 5%;
+    background-color: transparent;
+    color: whitesmoke;
+    /* font-size: smaller; */
+}
+
+
 /* Style for the autocomplete */
 
 .autocomplete-list {
@@ -224,6 +256,7 @@ p {
 }
 
 .footer {
+    z-index: 6;
     text-align: center;
     padding: 10px;
     background-color: rgba(0,0,0,0.1);
@@ -311,6 +344,10 @@ a{
 }
 
 /* Easy Helpers */
+.bro{
+    height: 5vh;
+}
+
 .paddingless{
     padding: 0px !important;
 }
