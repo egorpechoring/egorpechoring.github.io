@@ -21,7 +21,7 @@ let isReturn;
 
 export function findTickets(inputData) {
   isReturn = inputData['isreturn']
-  console.log(inputData)
+  console.log("user input: ",inputData)
   // blinking-class
   const progressPlanesA = document.querySelectorAll('.rotated-icon-active')
   
@@ -37,52 +37,52 @@ export function findTickets(inputData) {
   const apiUrl = `https://ts8n59al5l.execute-api.eu-north-1.amazonaws.com/default/IFlyBackend?From=${inputData["departure"]}&To=${inputData["arrival"]}&isReturn=${inputData["isreturn"]}&currency=${eur}&threshold=${inputData["limit"]}`;
   console.log("apiUrl: ", apiUrl);  
 
-  const fetchPromise = fetchData(apiUrl);
+  // const fetchPromise = fetchData(apiUrl);
 
-  fetchPromise
-    .then(data => {
-        progressPlanesA.forEach((plane, index) => {
-          plane.classList.remove('blinking-class');
-        })
-        document.getElementById('landing-content').classList.add('d-none')
-        document.getElementById('results-content').classList.remove('d-none')
+  // fetchPromise
+  //   .then(data => {
+  //       progressPlanesA.forEach((plane, index) => {
+  //         plane.classList.remove('blinking-class');
+  //       })
+  //       document.getElementById('landing-content').classList.add('d-none')
+  //       document.getElementById('results-content').classList.remove('d-none')
 
-        // console.log("data: ",data)
+  //       // console.log("data: ",data)
 
-        var apiResponseArray = JSON.parse(data);
+  //       var apiResponseArray = JSON.parse(data);
 
-        // processing
+  //       // processing
 
-        if(isReturn && inputData["isReturn"] === "any"){
-            apiResponseArray = CreateFlightPairs(apiResponseArray);
-        }
-        if (apiResponseArray.length !== 0){
+  //       if(isReturn && inputData["isReturn"] === "any"){
+  //           apiResponseArray = CreateFlightPairs(apiResponseArray);
+  //       }
+  //       if (apiResponseArray.length !== 0){
             
-          apiResponseArray.sort(function(a, b) {
-              var dateA;
-              var dateB;
+  //         apiResponseArray.sort(function(a, b) {
+  //             var dateA;
+  //             var dateB;
 
-              if(isReturn){
-                  dateA = new Date(a[0].departureDate);
-                  dateB = new Date(b[0].departureDate);
-              } else {
-                  dateA = new Date(a.departureDate);
-                  dateB = new Date(b.departureDate);
-              }
+  //             if(isReturn){
+  //                 dateA = new Date(a[0].departureDate);
+  //                 dateB = new Date(b[0].departureDate);
+  //             } else {
+  //                 dateA = new Date(a.departureDate);
+  //                 dateB = new Date(b.departureDate);
+  //             }
               
-              return dateA - dateB;
-          });
+  //             return dateA - dateB;
+  //         });
 
-          RenderData(apiResponseArray);
-        } else  {
-          document.getElementById('results-content').innerHTML = `<br class="bro"><br class="bro"><br class="bro"><br class="bro">No flights between selected parameters at all :c<br class="bro"><br class="bro">`;
-        }
+  //         RenderData(apiResponseArray);
+  //       } else  {
+  //         document.getElementById('results-content').innerHTML = `<br class="bro"><br class="bro"><br class="bro"><br class="bro">No flights between selected parameters at all :c<br class="bro"><br class="bro">`;
+  //       }
         
-        // still fetch processing :D
-      })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    });
+  //       // still fetch processing :D
+  //     })
+  //   .catch(error => {
+  //     console.error('Error fetching data:', error);
+  //   });
 }
 
 function CreateFlightPairs(apiResponseA) {

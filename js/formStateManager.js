@@ -72,7 +72,7 @@ export class FormStateManager {
                 document.getElementById('location-place2').innerText = this.portTo
                 break;
             case 5:
-                DisplayState5()
+                DisplayState5(this.isReturn, this.isExactDates)
                 break;
             case 6:
                 DisplayState6()
@@ -143,9 +143,12 @@ export class FormStateManager {
 
             case 2:
                 let r = document.getElementById('returnTicketsCheckbox').checked;
+                let e = document.getElementById('exactDates').checked;
                 console.log("return: ", r)
+                console.log("exactDates: ", e)
 
                 this.isReturn = r
+                this.isExactDates = e
                 break;
             case 3:
                 // let minimumNights = document.getElementById('minimumNights').value;
@@ -184,12 +187,23 @@ export class FormStateManager {
                 break; 
             case 5:
                 let startDateInput = document.getElementById('startDate').value;
-                let endDateInput = document.getElementById('endDate').value;
-
                 let startDate = new Date(startDateInput);
-                let endDate = new Date(endDateInput);
 
                 let today = new Date();
+
+                if(this.isReturn === false && this.isExactDates === false){
+                    if (startDate >= today ){
+                        break
+                    } else {
+                        result = 'Departure date should be greater than yesterday';
+                        break
+                    }
+                }
+
+                let endDateInput = document.getElementById('endDate').value;
+
+                let endDate = new Date(endDateInput);
+
 
                 if (startDate >= today && startDate <= AddMonths(today, 12)) {
                     if (endDate > startDate && endDate <= AddMonths(today, 12)) {
@@ -200,19 +214,19 @@ export class FormStateManager {
                         this.enDate = endDate;
                     } else {
                         if(endDate > startDate){
-                            result = 'End date should not exceed today + 12 months';
+                            result = 'Range end date should not exceed today + 12 months';
                             break; 
                         } else {
-                            result = 'End date should be greater than start date';
+                            result = 'Range end date should be greater than start date';
                             break; 
                         }
                     }
                 } else {
                     if(startDate >= today){
-                        result = 'Start date should not exceed today + 12 months';
+                        result = 'Range start date should not exceed today + 12 months';
                         break; 
                     } else {
-                        result = 'Start date should be at least today';
+                        result = 'Range start date should be at least today';
                         break; 
                     }
                 }
@@ -342,7 +356,7 @@ function DisplayState1(){
     }
 }
 
-function DisplayState5() {
+function DisplayState5(isReturn, isExactDates) {
     console.log("state - 5")
     // unhide backButton, formNavigationDivider, and nextButton by removing class d-none
     const backButton = document.getElementById('backButton');
@@ -360,7 +374,71 @@ function DisplayState5() {
     if (nextButton) {
         nextButton.classList.remove('d-none');
     }
+
+    FillSection(isReturn, isExactDates)
 }
+
+function FillSection(isReturn, isExactDates) {
+    var pSection5 = document.getElementById('Psection5');
+    pSection5.innerHTML = '';
+
+    // Create the first input section
+    var firstSection = document.createElement('div');
+    firstSection.style.width = '100%';
+
+    var aboveInput1 = document.createElement('div');
+    aboveInput1.className = 'col-auto paddingless above-input';
+    if(isExactDates === false){
+        aboveInput1.textContent = 'Depart at';
+    } else {
+        aboveInput1.textContent = 'Travel within range begins from';
+    }
+
+    var startDateInput = document.createElement('input');
+    startDateInput.type = 'date';
+    startDateInput.className = 'form-control col-auto';
+    startDateInput.style.width = '100%';
+    startDateInput.id = 'startDate';
+    startDateInput.autocomplete = 'off';
+
+    firstSection.appendChild(aboveInput1);
+    firstSection.appendChild(startDateInput);
+
+    // Create a line break
+    var lineBreak = document.createElement('br');
+
+    if(isReturn === false && isExactDates === false){
+    } else {
+        // Create the second input section
+        var secondSection = document.createElement('div');
+        secondSection.style.width = '100%';
+
+        var aboveInput2 = document.createElement('div');
+        aboveInput2.className = 'col-auto paddingless above-input';
+        if(isReturn === true && isExactDates === false ){
+            aboveInput2.textContent = 'and return back at';
+        } else {
+            aboveInput2.textContent = 'and ends after';
+        }
+
+        var endDateInput = document.createElement('input');
+        endDateInput.type = 'date';
+        endDateInput.className = 'form-control col-auto';
+        endDateInput.style.width = '100%';
+        endDateInput.id = 'endDate';
+        endDateInput.autocomplete = 'off';
+
+        secondSection.appendChild(aboveInput2);
+        secondSection.appendChild(endDateInput);
+        }
+
+        pSection5.appendChild(firstSection);
+        pSection5.appendChild(lineBreak);
+        if(isReturn === false && isExactDates === false){
+        } else {
+            pSection5.appendChild(secondSection);
+        }
+    }
 
 function DisplayState6() {
     console.log("state - 6")
