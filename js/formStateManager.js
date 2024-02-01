@@ -8,12 +8,25 @@ export class FormStateManager {
         this.supportedAirports = airports;
     }
 
+    setDate(isFirst, date){
+        if(isFirst){
+            this.stDate = date;
+        } else {
+            this.enDate = date;
+        }
+    }
+
     goBack() {
+        if(this.currentState===5){
+            this.validateStateInput(this.currentState)
+        }
         DisplayError()
         if(this.currentState === 4){
             this.currentState--
         }
-        if (this.currentState === 5 && !this.isReturn){
+        if ((this.currentState === 5 && !this.isReturn) || 
+        (this.currentState === 5 && this.isReturn === true && this.isExactDates === false)
+        ){
             this.currentState -=2 
             SkipStepsBack()
         }
@@ -26,7 +39,9 @@ export class FormStateManager {
     goNext() {
         let errorMsg = this.validateStateInput(this.currentState)
         DisplayError(errorMsg)
-        if (this.currentState === 2 && !this.isReturn){
+        if ((this.currentState === 2 && !this.isReturn) ||
+            (this.currentState === 2 && this.isReturn === true && this.isExactDates === false)
+        ){
             this.currentState +=2 
             SkipStepsForward()
         }
@@ -72,7 +87,7 @@ export class FormStateManager {
                 document.getElementById('location-place2').innerText = this.portTo
                 break;
             case 5:
-                DisplayState5(this.isReturn, this.isExactDates)
+                DisplayState5(this.isReturn, this.isExactDates, this.stDate, this.enDate)
                 break;
             case 6:
                 DisplayState6()
@@ -193,6 +208,7 @@ export class FormStateManager {
 
                 if(this.isReturn === false && this.isExactDates === false){
                     if (startDate >= today ){
+                        this.stDate = startDate;
                         break
                     } else {
                         result = 'Departure date should be greater than yesterday';
@@ -356,7 +372,7 @@ function DisplayState1(){
     }
 }
 
-function DisplayState5(isReturn, isExactDates) {
+function DisplayState5(isReturn, isExactDates, date1, date2) {
     console.log("state - 5")
     // unhide backButton, formNavigationDivider, and nextButton by removing class d-none
     const backButton = document.getElementById('backButton');
@@ -375,10 +391,11 @@ function DisplayState5(isReturn, isExactDates) {
         nextButton.classList.remove('d-none');
     }
 
-    FillSection(isReturn, isExactDates)
+    FillSection(isReturn, isExactDates, date1, date2)
 }
 
-function FillSection(isReturn, isExactDates) {
+function FillSection(isReturn, isExactDates, date1, date2) {
+    console.log("date1, date2",date1, date2)
     var pSection5 = document.getElementById('Psection5');
     pSection5.innerHTML = '';
 
@@ -400,6 +417,13 @@ function FillSection(isReturn, isExactDates) {
     startDateInput.style.width = '100%';
     startDateInput.id = 'startDate';
     startDateInput.autocomplete = 'off';
+    
+    // Convert date1 to the "YYYY-MM-DD" format
+    if(date1){
+        var date1t = new Date(date1);
+        console.log("date1t ", date1t)
+        startDateInput.value = date1t.toISOString().split('T')[0];
+    }
 
     firstSection.appendChild(aboveInput1);
     firstSection.appendChild(startDateInput);
@@ -427,18 +451,26 @@ function FillSection(isReturn, isExactDates) {
         endDateInput.style.width = '100%';
         endDateInput.id = 'endDate';
         endDateInput.autocomplete = 'off';
+        
+        // Convert date1 to the "YYYY-MM-DD" format
+        if(date2){
+            var date2t = new Date(date2);
+            console.log("date1t ", date2t)
+            startDateInput.value = date2t.toISOString().split('T')[0];
+        }
 
         secondSection.appendChild(aboveInput2);
         secondSection.appendChild(endDateInput);
-        }
 
-        pSection5.appendChild(firstSection);
-        pSection5.appendChild(lineBreak);
-        if(isReturn === false && isExactDates === false){
-        } else {
-            pSection5.appendChild(secondSection);
-        }
     }
+
+    pSection5.appendChild(firstSection);
+    pSection5.appendChild(lineBreak);
+    if(isReturn === false && isExactDates === false){
+    } else {
+        pSection5.appendChild(secondSection);
+    }
+}
 
 function DisplayState6() {
     console.log("state - 6")
