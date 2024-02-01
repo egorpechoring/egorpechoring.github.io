@@ -10,6 +10,10 @@ export class FormStateManager {
 
     goBack() {
         DisplayError()
+        if (this.currentState === 5 && !this.isReturn){
+            this.currentState -=2 
+            SkipStepsBack()
+        }
         if (this.currentState > 0) {
             this.currentState--;
             this.updateForm();
@@ -19,6 +23,10 @@ export class FormStateManager {
     goNext() {
         let errorMsg = this.validateStateInput(this.currentState)
         DisplayError(errorMsg)
+        if (this.currentState === 2 && !this.isReturn){
+            this.currentState +=2 
+            SkipStepsForward()
+        }
         if (this.currentState < 6 && !errorMsg) {
             this.currentState++;
             this.updateForm();
@@ -80,37 +88,147 @@ export class FormStateManager {
             case 1:
                 let airPortFrom = document.getElementById('airportFrom').value;
                 let airPortTo = document.getElementById('airportTo').value;
-                console.log("from: ",airPortFrom)
-                console.log("to: ", airPortTo)
 
+                if (this.supportedAirports.includes(airPortFrom)) {
+                    this.portFrom = airPortFrom;
+                } else {
+                    if(airPortFrom){
+                        result = 'Departure airport is not supported';
+                    } else {
+                        result = 'Departure airport could not be empty';
+                    }
+                }
+
+                if(result){
+                    break;
+                }
+
+                if (this.supportedAirports.includes(airPortTo)) {
+                    if (airPortTo !== airPortFrom) {
+                        this.portTo = airPortTo;
+                    } else {
+                        result = 'Destination airport should not be the same';
+                    }
+                } else {
+                    if(airPortTo){
+                        result = 'Arrival airport is not supported';
+                    } else {
+                        result = 'Arrival airport could not be empty';
+                    }
+                }
+
+                if(result){
+                    break;
+                }
+
+                console.log("from: ", airPortFrom);
+                console.log("to: ", airPortTo);
+
+                this.portFrom = airPortFrom
                 this.portTo = airPortTo
                 break;
+
             case 2:
-                let isReturn = document.getElementById('returnTicketsCheckbox').checked;
-                console.log("return: ", isReturn)
+                let r = document.getElementById('returnTicketsCheckbox').checked;
+                console.log("return: ", r)
+
+                this.isReturn = r
                 break;
+            // case 3:
+            //     let minimumNights = document.getElementById('minimumNights').value;
+
+            //     // minimumNights could not be negative number and could not be more than 30
+
+            //     console.log("minimumNights: ",minimumNights)
+            //     this.minNights = minimumNights
+            //     break;
             case 3:
                 let minimumNights = document.getElementById('minimumNights').value;
-                console.log("minimumNights: ",minimumNights)
-                break;
+                
+                if (!isNaN(minimumNights) && minimumNights > 0 && minimumNights <= 27) {
+                    console.log("minimumNights: ", minimumNights);
+                    this.minNights = minimumNights;
+                } else {
+                    result = 'Minimum staying nights should be a positive integer not exceeding 27';
+                }
+                break; 
             case 4:
                 let maximumNights = document.getElementById('maximumNights').value;
-                console.log("maximumNights", maximumNights)
-                break;
+
+                if (!isNaN(maximumNights) && maximumNights > 0 && maximumNights <= 28) {
+                    if(this.minNights > maximumNights){
+                        result = 'Maximal staying nights should equal or grater than minimum staying nights ('+this.minNights+')';
+                    } else {
+                        console.log("maximumNights", maximumNights)
+                        this.maxNights = maximumNights
+                    }
+                } else {
+                    result = 'Maximum staying nights should be a positive integer not exceeding 28';
+                    break; 
+                }
+                break; 
+            // case 5:
+            //     let startDate = document.getElementById('startDate').value;
+            //     let endDate = document.getElementById('endDate').value;
+            //     console.log("startDate: ", startDate)
+            //     console.log("endDate: ", endDate)
+
+            //     // startDate should be at least today or grater
+            //     // startDate should not be greater than today + 6 month
+            //     // endDate should be grater than startDate
+            //     // endDate should not be greater than today + 6 month
+
+            //     break;
             case 5:
-                let startDate = document.getElementById('startDate').value;
-                let endDate = document.getElementById('endDate').value;
-                console.log("startDate: ", startDate)
-                console.log("endDate: ", endDate)
+                let startDateInput = document.getElementById('startDate').value;
+                let endDateInput = document.getElementById('endDate').value;
+
+                let startDate = new Date(startDateInput);
+                let endDate = new Date(endDateInput);
+
+                let today = new Date();
+
+                if (startDate >= today && startDate <= AddMonths(today, 12)) {
+                    if (endDate > startDate && endDate <= AddMonths(today, 12)) {
+                        console.log("startDate: ", startDate);
+                        console.log("endDate: ", endDate);
+
+                        this.stDate = startDate;
+                        this.enDate = endDate;
+                    } else {
+                        if(endDate > startDate){
+                            result = 'End date should not exceed today + 12 months';
+                            break; 
+                        } else {
+                            result = 'End date should be greater than start date';
+                            break; 
+                        }
+                    }
+                } else {
+                    if(startDate >= today){
+                        result = 'Start date should not exceed today + 12 months';
+                        break; 
+                    } else {
+                        result = 'Start date should be at least today';
+                        break; 
+                    }
+                }
+
                 break;
             case 6:
-                 
                 break;
             default:
                 // Default case does nothing
         }
+        console.log("result", result)
         return result
     }
+}
+
+function AddMonths(date, months) {
+    let newDate = new Date(date);
+    newDate.setMonth(newDate.getMonth() + months);
+    return newDate;
 }
 
 function DisplayError(msg){
@@ -263,31 +381,18 @@ function DisplayState6() {
     // showLoadingSpinner()
 }
 
-// Function to show the loading spinner
-// function showLoading() {
-//     let i = 1;
-//     while(true){
-//         if (i == 5){
-//             document.getElementById('plane5base').classList.add("d-none");
-//             document.getElementById('plane5active').classList.remove("d-none");
-//             document.getElementById('plane1base').classList.remove("d-none");
-//             document.getElementById('plane1active').classList.add("d-none");
-//             i = 1;
-//         } else {
-//             document.getElementById('plane'+i+'base').classList.add("d-none");
-//             document.getElementById('plane'+i+'active').classList.remove("d-none");
-//             document.getElementById('plane'+(i+1)+'base').classList.remove("d-none");
-//             document.getElementById('plane'+(i+1)+'active').classList.add("d-none");
-//             i++;
-//         }
-//     }
-// }
+function SkipStepsForward(){
+    document.getElementById('plane3base').classList.add("d-none");
+    document.getElementById('plane3active').classList.remove("d-none");
+    document.getElementById('plane4base').classList.add("d-none");
+    document.getElementById('plane4active').classList.remove("d-none");
+} 
 
-// // Function to hide the loading spinner
-// function hideLoading() {
-//     // somehow stop 
-// }
-
-function getFormData(){
-    console.log("collecting data from form")
+function SkipStepsBack(){
+    document.getElementById('plane3base').classList.remove("d-none");
+    document.getElementById('plane3active').classList.add("d-none");
+    document.getElementById('plane4base').classList.remove("d-none");
+    document.getElementById('plane4active').classList.add("d-none");
+    document.getElementById('plane5base').classList.remove("d-none");
+    document.getElementById('plane5active').classList.add("d-none");
 }
