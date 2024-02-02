@@ -37,12 +37,12 @@ document.getElementById('question').addEventListener('click', (event) => {
 
     let rect = event.target.getBoundingClientRect();
     let absoluteTop = rect.top ; // Adjusted to be below the question icon
-    let absoluteLeft = rect.left + rect.width / 2; // Center of the question icon
+    let absoluteLeft = 0; // Center of the question icon
 
     // Calculate the position to be centered below the question
     let topPosition = absoluteTop;
 
-    answer.style.left = absoluteLeft - answer.clientWidth / 2 + 'px'; // Center the answer below the center of the question
+    // answer.style.left = absoluteLeft - answer.clientWidth / 2 + 'px'; // Center the answer below the center of the question
     answer.style.top = topPosition + 'px';
 
     answer.addEventListener('click', ()=>{
