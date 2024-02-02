@@ -22,6 +22,14 @@ let suggestions = document.getElementById('suggestions');
 let airportInputFrom = document.getElementById('airportFrom');
 let airportInputTo = document.getElementById('airportTo');
 
+airportInputFrom.addEventListener('click', (event) => {
+    airportInputFrom.value = ""
+})
+
+airportInputTo.addEventListener('click', (event) => {
+    airportInputTo.value = ""
+})
+
 airportInputFrom.addEventListener('input', (event) => {
     suggest(airportInputFrom, event)
 })
