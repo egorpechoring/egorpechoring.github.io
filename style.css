@@ -292,6 +292,15 @@ a{
     margin-top: 3.75rem !important;
 }
 
+.question-icon{
+    width: 1.2rem ;
+    height: 1.2rem; 
+    transform-origin: center; 
+    padding: 0.15rem;
+    border: 1px solid rgba(238,199, 192,1); 
+    border-radius: 100px;
+}
+
 .rotated-icon {
     width: 1.75rem; /* Adjust the size as needed */
     height: 1.75rem; /* Adjust the size as needed */

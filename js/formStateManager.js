@@ -334,7 +334,7 @@ function DisplayState0(){
     console.log("state - 0");
                 
     // Change nextButton text to "Find a flight!"
-    document.getElementById('nextButton').innerText = 'Find a flight!';
+    document.getElementById('nextButton').innerText = "Let's try!";
     
     // Check if backButton and divider have class d-none, if not - add this class
     const backButton = document.getElementById('backButton');
