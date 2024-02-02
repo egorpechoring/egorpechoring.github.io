@@ -214,6 +214,21 @@ p {
 
 }
 
+.question-note {
+    position: absolute;
+    list-style: none;
+    padding: unset;
+    margin: unset;
+    max-height: 30vh;
+    max-width: 30vh;
+    overflow-y: scroll;
+    z-index: 3;
+    padding: 0.6rem;
+    background-color: rgba(244, 221, 217, 0.9);
+    border: 3px solid rgb(238, 199, 191);
+    color: rgba(18, 28, 40, 0.85);
+}
+
 /* Video background */
 
 

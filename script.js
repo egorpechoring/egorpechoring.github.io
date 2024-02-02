@@ -30,6 +30,29 @@ airportInputTo.addEventListener('input', (event) => {
     suggest(airportInputTo, event)
 })
 
+document.getElementById('question').addEventListener('click', (event) => {
+    console.log("nu i hui ");
+    let answer = document.getElementById('answer');
+    answer.classList.remove('d-none');
+
+    let rect = event.target.getBoundingClientRect();
+    let absoluteTop = rect.top ; // Adjusted to be below the question icon
+    let absoluteLeft = rect.left + rect.width / 2; // Center of the question icon
+
+    // Calculate the position to be centered below the question
+    let topPosition = absoluteTop;
+
+    answer.style.left = absoluteLeft - answer.clientWidth / 2 + 'px'; // Center the answer below the center of the question
+    answer.style.top = topPosition + 'px';
+
+    answer.addEventListener('click', ()=>{
+        let answer = document.getElementById('answer');
+        answer.classList.add('d-none');
+    })
+});
+
+
+
 function suggest(airportInput, event){
     suggestions.classList.remove('d-none');
     let inputText = airportInput.value.toLowerCase();
