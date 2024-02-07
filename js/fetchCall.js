@@ -35,7 +35,7 @@ export function findTickets(inputData) {
   // TODO: PUT CORRECT
   let eur = 'EUR'
   // const apiUrl = `https://ts8n59al5l.execute-api.eu-north-1.amazonaws.com/default/IFlyBackend?From=${inputData["departure"]}&To=${inputData["arrival"]}&isReturn=${inputData["isreturn"]}&currency=${eur}&threshold=${inputData["limit"]}`;
-  const apiUrl = `https://ov874qc8j5.execute-api.eu-north-1.amazonaws.com/ifly_processor?ID=5`;
+  const apiUrl = `https://ov874qc8j5.execute-api.eu-north-1.amazonaws.com/api/ifly_processor?ID=5`;
   console.log("apiUrl: ", apiUrl);  
 
   const fetchPromise = fetchData(apiUrl);
